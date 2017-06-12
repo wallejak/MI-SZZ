@@ -2,4 +2,4 @@
 
 Bez záruky, že zde nejsou žádné chyby nebo že je shrnutí úplné.
 
-Pokud chcete přispět, pošlete pull request.
+Pokud chcete přispět, pošlete pull request. Cílem je zachovat dokument stručný a nevysvětlovat všechno úplně do hloubky.

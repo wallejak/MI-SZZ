@@ -1,0 +1,1295 @@
+\documentclass[a4paper,hidelinks]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,margin=2cm]{geometry}
+\usepackage[czech]{babel}
+
+
+\title{MI-SZZ}
+\author{Jakub Waller, Tomáš Malíček}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{amsmath} %advanced maths
+\usepackage{hyperref}
+\hypersetup{
+     colorlinks   = true,
+     urlcolor     = blue
+}
+
+\newcommand{\myimage}[1] {\includegraphics[width=0.4\linewidth]{IMAGES/#1}}
+\newcommand{\myimagebig}[1] {\includegraphics[width=0.6\linewidth]{IMAGES/#1}}
+\newcommand{\myimagesuperbig}[1] {\includegraphics[width=\linewidth]{IMAGES/#1}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\part{Společné okruhy}
+
+% řadil bych to jako je to na EDUXu
+
+\section{MPI}
+
+\subsection{Teorie grup: Grupoidy, pologrupy, monoidy a grupy. Podgrupy, cyklické grupy a jejich generátory.}
+
+\begin{itemize}
+    \item Grupoid: $(M, *)$, kde $M$ je množina uzavřená vůči operaci $*$
+    \item Pologrupa: asociativní grupoid
+    \item Monoid: pologrupa s neutrálním prvkem
+    \item Grupa: monoid s inverzníma prvkama
+    \item Abelovská grupa: komutativní grupa
+    \item Podgrupa: podmnožina množiny tý grupy, která spolu se stejnou operací tvoří grupu
+    \begin{itemize}
+        \item Triviální podgrupy: prázdná, a samotná grupa. Zbytek jsou netriviální (vlastní) podgrupy.
+        \item Neutrální prvek a inverzní prvky jsou ty samý jako v původní grupě
+    \end{itemize}
+    \item Řád grupy = počet prvků
+    \item Cyklické grupy
+    \begin{itemize}      
+        \item $\langle N \rangle$ -- podgrupa generovaná množinou N.
+        \item Grupa $G = (M,*)$ je cyklická, pokud existuje prvek $a \in M$ tak, že $\langle a \rangle  = G$. Prvek $a$ je generátor grupy $G$. 
+        \item Každá cyklická grupa je taky abelovská
+        \item Pokud $a$ je gener. cykl. grupy řádu $n$, pak $a^k$ je generátor multiplikativní grupy pokud $gcd(k, n) = 1$
+        \item Každá cyklická grupa má $\varphi(n)$ generátorů -- eulerovská funkce = počet menších nesoudělných čísel
+        \item Podgrupy cyklické grupy jsou cyklické
+    \end{itemize}
+    \item Lagrangeova věta: Jestliže je H podgrupa G, dělí řád podgrupy H řád (konečné) grupy G. Důsledkem je, že grupa prvočíselného řádu má pouze triviální podgrupy.
+    \item Malá Fermatova věta: V cyklické grupě $G = (M,*)$ řádu $n$ platí pro všechny prvky $a \in M$, že $a^n = e$, kde $e$ je neutrální prvek.
+    \item Homomorfismus = Takový zobrazení z grupoidu do grupoidu, že je jedno, jestli nejdřív provedu operaci z G a pak výsledek zobrazím do grupoidu H, nebo jestli nejdřív zobrazím prvky z G do H a pak na nich provedu operaci z H. Izomorfismus - prostý a na.
+\end{itemize}
+
+\begin{figure}
+        \centering
+        \begin{minipage}{0.45\textwidth}
+        \myimagesuperbig{grupy}
+        \caption{Hierarchie množin s binární operací a jejich „ANIK“ vlastnosti.}
+        \label{fig:grupy}
+        \end{minipage}%
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+        \myimagesuperbig{telesa}
+        \caption{Hierarchie okruhů, oborů integrity a těles. T–OB-OK = „TOBOK“.}
+        \label{fig:telesa}
+        \end{minipage}
+    \end{figure}
+
+\subsection{Tělesa a okruhy: Základní definice a vlastnosti. Konečná tělesa. Okruhy polynomů, ireducibilní polynom.}
+
+\begin{itemize}
+    \item $(M, +, *)$ je okruh, pokud $(M, +)$ je Abelovská grupa, $(M, *)$ je pologrupa a platí distributivní zákon
+    \item $a * b = 0$ se nazývají dělitelé nuly. Komutativní okruh bez dělitelů nuly je obor integrity.
+    \item Okruh $(M, +, *)$ je těleso, jestliže $(M \setminus \{0\}, *)$ je grupa.
+    \item Příklad okruhu, co není těleso: $(\mathbb{Z}, +, \cdot)$
+    \item Konečně těleso = těleso, které má konečný počet prvků. Základní příklad je množina zbytkových tříd modulo prvočíslo $p$, $\mathbb{Z}_p = \{0, 1, \ldots, p-1\}$.
+    \begin{itemize}
+        \item Řád $(\mathbb{Z}, +)$ je $p$ a každý nenulový prvek je generátor.
+        \item Řád $(\mathbb{Z}, *)$ je $p-1$, je cyklická a má $\varphi(p-1)$ generátorů.
+        \item Řádem konečného tělesa musí být $p^n$, kde $p$ je prvočíslo a $n$ přirozené číslo. $p$ se nazývá charakteristika. Všechna tělesa řádu $p^n$ jsou navzájem izomorfní.
+    \end{itemize}
+    \item Komutativní okruh polynomů nad okruhem $K$ (sčítání a násobení polynomů snad zvládneme), značen $K[x]$.
+    \item Buď $P(x) \in K[x]$ stupně alespoň 1. Řekneme, že $P(x)$ je ireducibilní nad $K$ (aka prvočíslo mezi polynomy), jestliže pro každé dva polynomy $A(x)$ a $B(x)$ z $K[x]$ platí $A(x) . B(x) = P(x) \Rightarrow (stupen A(x) = 0 \vee stupen B(x) = 0)$.
+    \begin{itemize}
+        \item Příklad polynomu ireducibilního nad reálnými čísly: $x^2 + 1$
+    \end{itemize}
+    \item Binární těleso je těleso s $2^n$ prvky (koeficienty jsou modulo 2) a značí se $GF(2^n)$
+    \begin{itemize}
+        \item Sčítání po složkách modulo 2
+        \item Násobení polynomů modulo nějaký zvolený ireducibilní polynom stupně $n$
+        \item Použití: AES
+    \end{itemize}
+    \item Konstrukce těles řádu $p^n$:
+    \begin{itemize}
+        \item $n = 1$. Množina $\mathbb{Z}_p$ s operacemi sčítání a násobení modulo $p$. 
+        \item $n > 1$. Množina polynomů z okruhu $\mathbb{Z}_p[x]$ stupně nejvýše $n-1$ s binárními operacemi sčítání po složkách modulo $p$, násobení v okruhu $\mathbb{Z}_p[x]$ modulo zadaný polynom stupně $n$ ireducibilní nad $\mathbb{Z}_p$
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Funkce více proměnných: gradient, Hessián, definitnost matic. Extrémy funkcí více proměnných a jejich hledání. Hledání vázaných extrémů (pouze s rovnostními vazbami).}
+
+\begin{itemize}
+    \item Funkce $f$ má v bodě $x\in R$ derivaci, je-li $f$ definovaná v okolí bodu $x$ a existuje-li limita $f^{\prime}(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$
+    \item Parciální derivaci funkce $f(x_+,...,x_n)$ vzhledem k $x_i$ v bodě $a=(a_1,...,a_n)\in D_f$ můžeme definovat jako: $\frac{\partial f}{\partial x_i}(a_1,...,a_n)=\lim_{h\to0}\frac{f(a_1,...,a_i+h,...,a_n)-f(a_1,...,a_n)}{h}$
+    \item Gradient - směr nejrychlejšího růstu funkce $f$, $\bigtriangledown f=(\frac{\partial f}{\partial x},\frac{\partial f}{\partial y},\frac{\partial f}{\partial z})$
+    \begin{itemize}
+        \item Pro všechny lok. extrémy platí, že gradient se rovná nule, jsou tzv. stacionární body.
+    \end{itemize}
+    \item Jacobiho matice - matice parc. derivací vektorové funkce $f$, řádek určuje funkci a sloupec určuje které číslo z vektoru $x$ se použije pro parc. derivaci, tato matice je zobecnění gradientu a pro jednu funkci je rovna gradientu.
+    \item Hessova matice - matice parc. derivací druhých řádů, řádek určuje první proměnnou podle které se derivuje a sloupec tu druhou, determinant této matice se jmenuje Hessián (někdy se tak označuje sama tato matice).
+    \item Definitnost matic
+    \begin{itemize}
+        \item Pozitivně (pro $\forall\vec{x}\in R^n\setminus \{\vec{0}\}$ platí $\vec{x}^TM\vec{x}>0$)
+        \item Negativně (pro $\forall\vec{x}\in R^n\setminus \{\vec{0}\}$ platí $\vec{x}^TM\vec{x}<0$)
+        \item Poz. semidefinitní (pro $\forall\vec{x}\in R^n$ platí $\vec{x}^TM\vec{x}\geq0$ a ex. nenulové $\vec{y}\in R^n$ splňující $\vec{y}^TM\vec{y}=0$)
+        \item Neg. semidefinitní (pro $\forall\vec{x}\in R^n$ platí $\vec{x}^TM\vec{x}\leq0$ a ex. nenulové $\vec{y}\in R^n$ splňující $\vec{y}^TM\vec{y}=0$)
+        \item Indefinitní (zbytek, tzn. právě když existují vektory $\vec{x},\vec{y}\in R^n$ splňující $\vec{x}^TM\vec{x}>0$ a $\vec{y}^TM\vec{y}<0$)
+    \end{itemize}
+    \begin{itemize}
+        \item Sylvestrovo kritérium - slouží k jednoduššímu určení zda je matice poz. či neg. definitní, platí jen pro symetr. matice
+        \begin{itemize}
+            \item Poz. definitní, když determinanty všech podmatic začinajících vlevo nahoře jsou kladné
+            \item Neg. definitní, když determinanty všech podmatic začínajících vlevo nahoře jsou nenulové, střídají znaménko, a první je záporný
+        \end{itemize}
+    \end{itemize}
+    \item Extrémy funkcí více proměnných a jejich hledání - zkoumáme body kde je gradient roven nule, tam může být min., max. nebo sedlový bod, který to je se zjistí určením definitnosti Hessovy matice v těchto bodech
+    \begin{itemize}
+        \item Jestliže matice poz. def., pak je v bodě ostré lok. ostré min., pokud semidef., pak min. není ostré.
+        \item Jestliže matice neg. def., pak je v bodě ostré lok. ostré max., pokud semidef., pak max. není ostré.
+        \item Jestliže matice indef., pak je v bodě sedlový bod
+        \item Glob. extrémy se hledají: z různých počátků, stochasticky, restartováním algoritmu s jinou poč. konfig. vzhledem k již nalezeným bodům.
+    \end{itemize}
+    \item Hledání vázaných extrémů s rovnostními vazbami - máme nějakou rovnici jako podmínku
+    \begin{itemize}
+        \item Hledáme lok. extrémy Lagrangeovy funkce $\Phi(x,y,\lambda)=f(x,y)+\lambda g(x,y)$ (pro 2 proměnné), kde $g$ je ta podmínková rovnice
+        \item Postup: najdeme stacionární body pomocí gradientu, vyřešíme soustavy rovnic a tím dostanem stac. bod(y), ty dosadíme do Hessovy matice a klasicky pomocí determinantů této matice zjistíme jestli lok. max. nebo lok. min.
+    \end{itemize}
+    \item Ptal se na ten grafický význam gradientu, chtěl vědět, kde že jako je, to sem taky moc nevěděl, chtěl slyšet, že je to vektor v tom definičním oboru té fce.
+\end{itemize}
+
+
+\subsection{Integrál funkce více proměnných.}
+
+\begin{itemize}
+    \item Motivace: výpočet objemu/obsahu pod grafem funkce, objem těles, hledání těžíště...
+    \item Riemannův určitý integrál - aproxiamce plochy pod křivkou pomocí obdélníků
+    \begin{itemize}
+        \item interval rozdělíme na malé kousky (tzv. rozdělení intervalu), na těchto kouscích aproximujeme funkci $f(x)$ vhodně zvolenými konstantami, dostaneme stupňovite funkce, obsah pod grafem stupň. funkce je součet obdélníků a tedy snadno spočítatelná veličina, přesnou hodnotu získáme tak, že v limitě pošleme šířku uvedených obdélníků k nule
+        \item Vlastnosti: aditivita integrálu, multiplikativita integrálu
+    \end{itemize}
+    \item Newtonova-Leibnizova formule - definice určitého integrálu založená na existenci primitivní funkce, její hledání je víceméně inverzní proces k derivování, $\int_a^bf(x)dx=[F(x)]_a^b=F(b)-F(a)$
+    \item Dvojný integrál nad obdélníkovou oblastí - převedeme na dva 1D problémy, $\int_a^b(\int_c^df(x,y)dy)dx$, nejdříve zintegrujeme vzhledem k jedné proměnné a druhou považujeme za konstantu, poté provedeme druhou integraci a to už je tam jen jedna proměnná
+    \item Dvojný integrál nad obecnou oblastí - místo $c$ a $d$ se dosadí nějké funkce a dělá se to samé jako nad obdélníkovou oblastí, vysvětlení je takové, že víceméně nasčítáváme ůzké obdélníky (co jsou na výšku mezi těmi funkcemi), stejně se to dá dělat pokud je omezené spojitými funkcemi $x$ a ne $y$
+    \item Trojný integrál a aplikace - analogické konstrukci integrálu dvojného, pouze integrujeme funkci tří proměnných, $\int\int\int f(x,y,z)dxdydz$, výpočet lze opět převést na 3 výpočty 1D integrálu, existuje  ovšem 3! možných pořadí integrování.
+\end{itemize}
+
+
+\section{PAR}
+
+\subsection{PRAM modely a algoritmy.}
+
+\begin{itemize}
+    \item RAM model - výpoč. jednotka, vst. a výst. páska, neomez. \# paměť. buněk lokální paměti
+    \begin{itemize}
+        \item Instrukce pro přesun dat, aritm., logické a větvící trvající jednotkový (konst.) čas
+        \item Čas. slož. algoritmu = počet provedených instrukcí, Prostorová slož. alg. = počet použitých paměť. buněk
+    \end{itemize}
+    \item PRAM model - neomezený počet procesorů RAM (bez pásek, ale s vlastní lokální pamětí)
+    \begin{itemize}
+        \item neom. \# sdílených pam. buněk přístupných v jedn. čase, vstup a výstup a komunikace procesorů přes sdílenou paměť
+        \item Operace: čtení sdíl. buňky (R), lokální operace (L), zápis do buňky sdíl. paměti (W).
+        \item proc. \#1 má aktivační registr active/idle pro každý proc., výpočet trvá dokud se \#1 nezastaví (ten se zastaví pokud ostatní skočily)
+        \item Paralelní časová složitost: jednotkový model (vše trvá 1), globální model (L trvá 1, W a R trvá $d>1$).
+        \item Význam PRAM modelu: silný (přístup k jakék. buňce sd. paměti v konst čase), jednoduchý a intuit., jako zkušební model.
+        \item Ošetření konfliktů při přístupu do sd. paměti:
+        \begin{itemize}
+            \item EREW PRAM - žádné dva proc. nemohou R ani W téže buňky sd. paměti najednou
+            \item CREW PRAM - může se současně R, ale ne W
+            \item CRCW PRAM - oboje se může současně, typy: prioritní (proc. mají priority, zápis je povolen proc. s nejv. prioritou), náhodný (vybere se náh. proc.), shodný (všem žádajícím proc. je povoleno dokončit zápis pokud jsou zapisované hodnoty stejné).
+        \end{itemize}
+        \item Výpočetní síla - A je výp. silnější než B ($A>=B$), když jakýk. alg. napsaný pro B poběží beze změny na A s tímtéž paral. časem, při stejných architektonických parametrech
+        \item Pro CRCW platí: priority$>=$arbitrary$>=$common$>=$CREW$>=$EREW.
+        \item PRAM alg. je časově efektivní pokud $O(log^{O(1)}(n))$ a zároveň $C(n,p)=O(SU(n)*log^{O(1)}(n))$.
+    \end{itemize}
+    \item PRAM algoritmy:
+    \begin{itemize}
+        \item Paralelní hledání - pro prezentaci různých přístupů do sdílené paměti
+        \item PRAM algoritmy s konst. časem/plně paralelní:
+        \begin{itemize}
+            \item Shodný CRCW PRAM ($n+1,n$) alg. pro výpočet $OR(x_1,...,x_n)$, $p=n$
+            \item Shodný CRCW PRAM ($2n+2,n^2$) alg. pro výpočet nejlevějšího maxima $max(x_1,...,x_n)$, $p=n^2$ procesorů mřížce indexovaných s konst. časem
+            \item Shodný CRCW PRAM ($n+\sqrt{n}+1,n$) alg. pro výpočet indexu prvního výskytu hodnoty 1 v binárním poli X, p=n.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Přímé ortogonální a řídké hyperkubické a nepřímé vícestupňové propojovací sítě pro paralelní počítače.}
+
+\begin{itemize}
+    \item Pojmy: stupeň uzlu, k-regulární graf, kartézský součin grafů, uzlo a hranově symetrický graf, excentricita uzlu, průměr grafu, poloměr grafu, souvislost grafu, bipartitní graf, Hamilt. kružnice, bisekční šířka
+    \item Přímé propojovací sítě ortogonální
+    \begin{itemize}
+        \item Binární hyperkrychle $Q_n$ - $2^n$ uzlů, $n2^{n-1}$ hran, průměr $n$, bisek. šířka $2^{n-1}$
+        \begin{itemize}
+            \item regulární (vš. uzly mají stejný stupeň a tedy stejný počet uzlů), log. stupeň uzlů, hierarchicky rekurzvní, uzlová a hran. symetrie, největší možná bisek. šířka, vzd. uzlů daná počtem rozdílných bitů
+        \end{itemize}
+        \item Mřížka $M(z_1,...,z_n)$ - $\prod_{i=1}^{n}z_i$ uzlů, $\sum_{i=1}^{n}((z_i-1)\prod_{j=1,j!=i}^{n}z_j)$ hran, průměr $\sum_{i=1}^{n}(z_i-1)$
+        \begin{itemize}
+            \item 2D a 3D nejpraktičtější pro použití, není regulární (není uzlově sym.), velký průměr, heirarchicky rekurzivní, bipartitní, Hamilt. cesta vždy ex., částečně ale neefek. škálovatelná
+        \end{itemize}
+        \item Toroid $K(z_1,...,z_n)$ - mřížka, kde je každá lin. řada uzavřena do kružnice
+        \begin{itemize}
+            \item regulární, uzlově sym., bipart. pokud jsou všechny délky stran sudé, částečně škálovatelný (ještě méně efektivní v porovnání s mřížkami)
+        \end{itemize}
+    \end{itemize}
+    \item Přímé propojovací sítě řídké hyberkubické - řídké grafy odvoz. od hyperkrychle
+    \begin{itemize}
+        \item Zabalený motýlek $wBF_n$ - $n2^n$ uzlů, $n2^{n+1}$ hran, bis. šířka $2^n$
+        \item Obyč. motýlek $oBF_n$ - $(n+1)2^n$ uzlů, $n2^{n+1}$ hran, průměr $2n$, bis. šířka $2^n$
+        \begin{itemize}
+            \item není regulární ani uzlově symetrický, heirarchicky rekurzivní
+        \end{itemize}
+    \end{itemize}
+    \item Nepřímé vícestupňové sítě (MIN): Banyan NxN MIN, k-ární delta MIN, obecná k-ární MIN
+    \begin{itemize}
+        \item Druhy permutačních stupňů:
+        \begin{itemize}
+            \item Dokonalé promíchání (Perfect shuffle) $\sigma$ - rotace vlevo o 1 bit
+            \item Motýlek (Butterfly) $\beta_i$ - záměna posledního a i-tého bitu
+            \item Základní (Baseline) $\delta_i$ - rotace doprava posledních $i+1$ bitů, bity před tím nechávám beze změny
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Paralelní redukce a prefixový výpočet nad polem, paralelní konstrukce Eulerovy cesty v grafu.}
+
+\begin{itemize}
+    \item Třída NC ("Nick's Class") je množina jazyků rozhodnutelných v nejvýše polylogaritmickém čase $T(n,p(n)) = O(\log^{O(1)}n)$ na počítači PRAM s nejvýše polynomiálním počtem procesorů $p(n)=O(n^{O(1)})$.
+    \item Paralelní redukce = provedení binární operace se všemi prvky pole (např je všechny sečtu)
+    \begin{itemize}
+        \item Je optimální na hyperkubických sítích
+        \item WH lineární pole, hyperkrychle, EREW PRAM: jednoduše přímo se složitostí $O(\log n)$
+        \item mřížky: po dimenzích
+        \item \myimage{redukce}
+    \end{itemize}
+    \item Prefixový součet = pro pole X je výstupem pole Y, kde Y[i] je součet prvních i prvků pole X. stejná škálovatelnost jako redukce
+    \begin{itemize}
+        \item EREW PRAM -- Pro predstavu, bunka „pricte“ svoji hodnotu do bunky o 1 vedle, v dalsim kromu o 2, pak o 4, ... ve stylu $2^{krok}$
+        \item Nepřímý strom výšky h(T) -- počítá 2h(T) kroků, vyšle to nahoru a pak dolu
+        \item Přímý strom výšky h(T) -- na něj namapováno pole A $n$ vstupních hodnot v pořadí POSTORDER, opět 2h(T) kroků. Stejné jako nepřímý, jen ještě nelisty k tomu přičtou svoji hodnotu.
+        \item Hyperkrychle -- vysílání všichni všem (zelený registr pro součet všech čísel, žlutý registr pro prefixový součet)
+        \item Mřížky a toroidy -- hodnoty se pošlou do pravého sloupce, pak v tomto sloupci do všech řádků a nakonec dojde k doinformování v řádcích (směrem doleva)
+    \end{itemize}
+    \item Segmentovaný prefixový součet
+    \begin{itemize}
+        \item vstupní pole rozděleno do segmentů, úkolem je spočítat prefixový součet v rámci jednotlivých segmentů
+        \item pokud má pravej prvek před sebou zábranu (tj. ty nalevo od něj patří do jinýho segmentu), tak nahoru do vyššího uzlu leze jen ten prvek (místo součtu levýho a pravýho)
+    \end{itemize}
+    \item Konstrukce Eulerovy cesty v grafu
+    \begin{itemize}
+        \item Eulerovská cesta vede přes všechny hrany právě jednou
+        \item Pole uzlů Adj $\to$ pole hran AA (hrana, následník a anti-paralelní dvojče)
+        \item Pro každou hranu e v AA (do in parallel): ET[e] := AA[e].sib.next
+        \item slouží jako základ pro široké spektrum paralelních výpočtů, např. výpočet minimální kostry, testování planarity, testování souvislosti grafu, ...
+    \end{itemize}
+\end{itemize}
+
+\subsection{Paralelní řadící sítě, 0-1 lemma, mřížkové a hyperkubické paralelní algoritmy pro řazení.}
+
+\begin{itemize}
+    \item základní operací je porovnej-a-vyměň (C\&E), sekvenční algoritmus má složitost O(n · log n)
+    \item Nepřímá síť: 
+    \begin{itemize}
+        \item složená ze sloupců komparátorů (HW implementací operace C\&E)
+        \item počet paralelních C\&E kroků = hloubka sítě
+        \item je statická, realizuje datově necitlivý algoritmus
+        \item pokud N $>$ k, na každý vstup frčí $\dfrac{N}{k}$ čísel a komparátory provádějí Merge-and-Split
+    \end{itemize}
+    \item Přímá síť:
+    \begin{itemize}
+        \item C\&E operace probíhají mezi dvojicí procesorů
+        \item Topologie: mřížky, toroidy, hyperkrychle, hyperkubické sítě, ...
+        \item Přímý řadící alg. = posloupnost dokonalých párování procesorů odvozených z jejich lineárního očíslování (výběr očíslování má vliv na složitost). Např v mřížce: po řádcích, po sloupcích, hadovitě
+        \item Také datově necitlivé
+    \end{itemize}
+    \item 0-1 řadící lemma: Jestliže datově necitlivý řadící algoritmus dokáže setřídit libovolnou binární vstupní posloupnost, pak dokáže setřídit libovolnou vstupní posloupnost. Důkaz nejlépe viz 8. přednáška, slajdy 8 a 9., nevím, jestli musíme znát.
+    \item Řazení na mřížkách:
+    \begin{itemize}
+        \item 1D -- paralelní bubblesort: sudo-liché C\&E na lineárním poli
+        \item 2D -- ShearSort: logn + 1 řádkových hadovitých fází a logn sloupcových fází
+        \item 3D -- 3DSort: komplikované aka čekuj fitwiki nebo přednášky
+    \end{itemize}
+    \item Řazení na hyperkubických sítích:
+    \begin{itemize}
+        \item Základem je MergeSort -- sudolichý, sudosudý, bitonický (Batcherovy algoritmy). Realizace: řadící nepřímá síť, motýlek, hyperkrychle, simulace na mřížkách
+    \end{itemize}
+\end{itemize}
+
+\section{SPI}
+
+\subsection{Odhady parametrů statistických rozdělení a modelů, odhady hustoty a distribuční funkce.}
+
+\begin{itemize}
+    \item Centrální limitní věta = suma několika nezávislých a stejně rozdělených (iid) náhodných veličin se přibližuje k normálnímu rozdělení s přibývajícím počtem veličin (náh. veličiny jsou např. kostky, čím víc jich je, tím víc součet toho co jsem hodil zapadá do gausovky)
+    \item Konfidenční interval (interval spolehlivosti pro střední hodnotu) - má nějakou přesnost, tozn. když vybereme samply z populace, tak by jejich střední hodnota měla být s určitou pravděpodobností v tomto intervalu
+    \begin{itemize}
+        \item Známe rozptyl $\sigma^2$ nebo je velikost výběru $n$ větší než 30: normální rozdělení, $\overline{X}_n\pm q_{1-\frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}$
+        \item Neznáme rozptyl: studentovo rozdělení s výběrovým rozptylem $s_n^2$, $\overline{X}_n\pm \tau_{\frac{\alpha}{2};n-1}\frac{s_n}{\sqrt{n}}$
+        \item Jednostranný/oboustranný odhad
+    \end{itemize}
+    \item Odhad hodnot parametrů pravděpodobnostních rozdělení:
+    \begin{itemize}
+        \item Momentová metoda: Obecný moment $\mu_i$ = $m'_i$ výběrovému momentu (ten se získá, spočítá). Metoda založena na zákonu velkých čísel = pro hodně pokusů se experimentální charakteristiky blíží teoretickým. 1. moment = střední hodnota $\mu$, 2. moment = rozptyl $\sigma^2$
+        \item Věrohodnostní (likelihood) funkce = sdružená hustota pravděpodobnosti $f(x_1|\theta) \cdot f(x_2|\theta) \cdot \ldots$ - pravděpodobnost, že naměřená data pasují do rozdělení s parametry $\theta$.
+        \item Metoda maximální věrohodnosti = maximalizujeme funkci nahoře (aka derivace) -- nebo její logaritmus, to je egál. Chci největší pravděpodobnost, že naměřená data pasují do daných modelů.
+    \end{itemize}
+    \item Histogram = odhad pravděpodobnostní funkce (graf) - either četnosti nebo relativní četnosti
+    \item Kernelový odhad hustoty = pomocí parametru $h$ vyhlazuje křivku funkce hustoty.
+    \item Empirická distribuční funkce = je schodovitá, se zvětšující se velikostí náhodného výběru n se blíží teoretické distribuční funkci. Sečtou se veličiny v náhodném výběru menší než $x$ a vydělí velikostí náh. výběru.
+    \item Gaussian mixtures: $f_x(x) = p_1 f_1(x) + p_2 f_2(x)$. Příklad: pravděpodobnosti $p_1, p_2$ určujou, jestli je to muž/žena, distribuce $f_1, f_2$ pak říkají, jak vysoký(á) je.
+    \item EM (expectation-maximisation) algorithm = mám samply z několika distribucí a chci zjistit, který kam patří a jaký distribuce to jsou. Přiřadím nějak ty samply do distribucí, a mrknu, jak tam pasujou (estimate fáze -- spočítám loglikelihood funkci). Poupravím to přiřazení (maximise fáze -- maximalizuju tu loglikelihood funkci) a zase mrknu. Atd atd až to konverguje. Funguje takhle třeba k-means.
+\end{itemize}
+
+\subsection{Statistické testy hypotéz o parametrech modelů, t-testy, testy nezávislosti, testy dobré shody.}
+
+\begin{itemize}
+    \item Nulová vs alternativní hypotéza, buď můžeme zamítnout nebo nezamítnout nulovou hyp.
+    \item Chyba prvního (zamítnuta a platí) vs druhého druhu (nezamítnuta a neplatí)
+    \item Studentovo t-rozdělení umožňuje dělat přijatelné závěry i na základě málo dat: jednovýběrový, dvouvýběrový (na dvou různých skupinách) a párový (dvojice měření na stejné skupině) t-test, který testuje pomocí střední hodnoty to jak jsou si podobná rozdělení.
+    \begin{itemize}
+        \item Jednovýběrový: $T = \dfrac{\overline{X} - \mu_1}{s_X} \sqrt{n}$. $H_0$ zamítáme pokud $|T| > t_{1 - \frac{\alpha}{2};n-1}$. Zvolíme střední hodnotu $\mu_1$ základního souboru (kterou chceme zamítnout, abychom řekli že tam nepatří ten výběr), ověřujeme hypotézu zda pokusný výběrový soubor pochází z populace.
+        \item Párový: $T = \dfrac{\overline{Z} - d}{s_Z} \sqrt{n}$, kde $\overline{Z} = \overline{X} - \overline{Y}$ a $d = \mu_1 - \mu_2, s_Z = s_X - s_Y$. Zvolíme $\mu_1$ a $\mu_2$.
+    \end{itemize}
+    \item Test nezávislosti = koukáme, jestli náhodné proměnné jsou nezávislé.
+    \begin{itemize}
+        \item Kanadský a googlitelný testy: runs test (kolik nad a pod), difference sign test (počet stoupajících úseček), turning point test (počet změn směrů)
+        \item Českej test: Runs above/below the mean -- $R_i = 1$ pokud se hodnota v i-tém prvku mění z "nad $\mu$" na "pod $\mu$" nebo obráceně. $N_n = \sum_i R_i$. To by mělo odpovídat normálnímu rozdělení $N_n \approx N(\mu = \dfrac{n + 1}{2}, \sigma^2 = \dfrac{n - 1}{4})$. Vypočteme $Z_n = \dfrac{N_n - E(N_n)}{\sigma = \sqrt{varN_n}}$. Pokud $Z_n$ zapadá do standardního normálního rozdělení, proměnné jsou nezávislé.
+    \end{itemize}
+    \item Test dobré shody (Pearsonův chí-kvadrát test) = používá se v případech kdy neznáme rozdělení. Porovnává naměřenou frekvenci s teoretickou. Např. u kostky se dá zkoumat, jestli je cinklá. Viz hezkej příklad \href{https://en.wikipedia.org/wiki/Pearson\%27s_chi-squared_test\#Examples}{na~wiki}
+\end{itemize}
+
+
+
+\subsection{Markovské řetězce s diskrétním a spojitým časem. Jejich limitní vlastnosti.}
+
+\begin{itemize}
+    \item Náhodný proces - soustava reálných náh. veličin indexovaná nejč. časem
+    \item Poissonův proces - náh. proces se spoj. časem, který je čítací, homogenní (= má stacionární přírůstky) a bez paměti (má nezávislé přírůstky), má intenzitu $\lambda$
+    \item Markovův řetězec - náh. proces, který splňuje Markovovu podmínku (je bez paměti).
+    \item Markov. řet. s diskr. rozdělením (DTMC), definován: množ. stavů, vekt. poč. rozdělení, maticí přechodů
+    \begin{itemize}
+        \item dělí se na homog. (pravděpodobnosti přechodů se nemění) a nehomog., je ireducibilní pokud se dá dostat z lib. stavu do jiného (nemusí být v jednom kroku)
+        \item Matice přechodů $P$ - řádek odkud, sloupec kam, součet řádků je 1, $P^n$ má vícekrokové pravd.
+        \item Druhy stavů (p = pravd. že se znova tam vrátí): tranzientní ($p<1$), rekurentní ($p=1$), absorpční (nedá se opustit).
+        \item Absopční řetězce - obsahuje mimo stavy tranzientní i absorpční
+        \item Matice přechodů absorpčního Mark. řetězce $(tranz. stavy matice Q, abs. stavy matice R; nul. matice, jednot. matice)$
+        \item Fundamentální matice absorpčního řet. $N = (jednotMatice - Q)^{-1}$ - kolikrát se proces v průměru ocitne v tranz. stavech, součet řádků je střední doba absorpce při  daném počátečním stavu
+        \item Pravd. matice že spadneme do stavu $j$ když začínáme v $i$, $B = N * R$
+    \end{itemize}
+    \item Markov. řet. se spojitým parametrem (CTMC, spojení DTMC s Pois. proc.) - 3 matice: přechodů $P_t$ (součty řádků 1, obsahuje funkce kde je parametr $t$), skokových intenzit $Q$ (součty řádků 0), $U$ diskrétních přechodových pravděpodobností v náh. čase $t$ (pro $i\neq j$ platí $\frac{\lambda_{i,j}}{\lambda_{MAX}}$, pro $i=j$ platí $1+\frac{\lambda_{i,j}}{\lambda_{MAX}}$, $\lambda_{MAX}$ je největší součet odchozích skok. intenzit, touto maticí převedeme CTMC na DTMC)
+    \begin{itemize}
+        \item $Q = P^\prime_t(t=0)$, $P^\prime_t = Q*P_t$, $P^\prime_t = P_t*Q$, řet. musí být homogenní aby platily
+        \item Intenzita přechodu (Jump rate) - je dána součinem $\lambda$ a přechodové pravděpodobnosti
+        \item Kolmogorov-Chapmanova rovnice - říka, že pravd. toho, že se z nějakého stavu dostaneme do jiného zjistíme tak, že sečteme pravd. průchodu přes všechny mezilehlé uzly
+    \end{itemize}
+    \item Stacionární rozdělení (rovnovážná distribuce) - když se nechá běžet proces donekonečna, tak se ustálí v nějakém vektoru pravděpodobností.
+    \begin{itemize}
+        \item Pro DTMC - vektor $\pi$ se nazývá stacionární rozdělení, $\pi=\pi*P$ (splňuje podmínku detailní rovnováhy $\pi_ip_{i,j}=\pi_jp_{j,i}  \forall i,j$ pak je stac. rozdělení), všechny prvky vektoru musí být nenulové a $\sum_{i=1}\pi_i=1$
+        \item Pro CTMC - $\pi=\pi*P_t$ pro každé $t>=0$ (také se dá použít podmínka detailní rovnováhy pro určení zda je to stac. rozd., stejná jako u DTMC), dále platí, že $\pi$ je stacionární rozdělení právě tehdy, když $\pi*Q=0$
+        \item Detailní rovnováha slouží k ověření, zda nějaké $\pi$ je stacion. distr., rovnice (ty co jsou uvedené v předch. dvou bodech) může být příliš složitá, a proto existuje detailní rovnováha - tou můžeme ověřit nějaký odhad.
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Systémy hromadné obsluhy, jejich limitní vlastnosti a stabilita. Souvislost s Poissonovým procesem a Markovskými řetězci.}
+
+\begin{itemize}
+    \item Obslužný systém obsahuje: vstupní tok požadavků, frontu, obsluhu, výstupní tok požadavků
+    \item Kendallova notace: A (střední počet jednotek co vstoupí během čas. jednotky), B (střední počet obsloužených během čas. jednotky), X (\# poč. paralleních serverů/kanálů/linek), Y (kapacita fronty, výchozí nekonečno), Z (chování/režim fronty, výchozí First-Come-First-Served).
+    \item Zabýváme se těmito typy: $M/M/1$, $M/M/m$ (tento je postaven na Markovském B\&D řetězci), $M/G/\infty$.
+    \item Obslužný systém může být otevřený (prvky se po obsloužení nevracejí do systému) a uzavřený (vracejí se).
+    \item $A$ příchody - tvoří stochastický proces, rozdělení intervalů mezi příchody: Poiss. proc., pravidelné deter. příchody, Erlangovo rozložení intervalů mezi příchody, nespecifik. rozdělení, obecné \& nezávislé.
+    \item $B$ výstupní tok - typy doby obsluhy: exponenciální rozložení, konstantní, Erlangovo rozložení, obecné/jakékoliv
+    \item $Z$ řežim fronty - typy: First-in-first-out, Last-come-first-served, First-in-last-out, Priority based, Random
+    \begin{itemize}
+        \item Velikost fronty: nulová, neomez., omezená
+        \item Disciplína fronty: absolutně netrpělivá (do fronty se vůbec nezařadí pokud nemůže být hned obzloužen $->$ systém se ztrátami), bez netrpělivosti (prvky čekají nekonečně dlouho klidne $->$ systém s čekáním), částečně netrpělivá (prvek čeká po určitou dobu jen)
+    \end{itemize}
+    \item Birth-and-death řetězce - spec. případ CTMC (má matici skok. intenzit $Q$), birth (přišel nový požadavek, systém přijímá s intenzitou $\lambda$), death (požadavek byl obsloužen, systém odbavuje s intenzitou $\mu$)
+    \begin{itemize}
+        \item Stacionární rozdělení $\pi$ $B\&D$ Mark. řetězce je $\pi(n)=\frac{\lambda_{n-1}}{\mu_n}\pi(n-1)$ pokud platí $\sum_{n=0}^{\infty}\pi(n)=1$ a $\forall n>=1:\pi(n)>=0$, dále zde pro $\pi$ platí i podmínky detailní rovnováhy.
+    \end{itemize}
+    \item Charakteristiky systémů hromadné obsluhy ($M/M/m$) - na jejich základě lze systém analyzovat
+    \begin{itemize}
+        \item Míra vytížení $\rho=\frac{\lambda}{\mu}$ musí být $\rho<1$ aby systém pracoval
+        \item Střední doba transakce (obsluhy) $T_S=\frac{1}{\mu}$
+        \item Střední počet zákazníků ve frontě $N_Q=\frac{\rho^2}{1-\rho}$
+        \item Střední doba čekání ve frontě $EW=\frac{\rho}{\mu-\lambda}$
+    \end{itemize}
+    \item Littleova věta: Průměrný počet pož. ve stabilním systému je roven průměrné frekvenci příchodů vynásoben průměrným časem požadavků v systému - $N=\lambda T$, kde $N$ je prům. počet zákaz. v systému, $T$ je prům. (střední) doba, jakou zákazník stráví v systému.
+\end{itemize}
+
+
+\section{PAA}
+
+
+\subsection{Význam tříd NP a NPH pro praktické výpočty.}
+
+\begin{itemize}
+    \item Pojmy: kombinatorický problém, konfigurační proměnné, instance problému, konfigurace, řešení instance, certifikát, SAT, stav algoritmu, stavový prostor, strategie pohybu stav. prostorem (úplná, systematická)
+    \item Typy komb. problémů: rozhodovací (zda existuje), konstruktivní (sestroj něco), enumerační (sestroj všechna), optimalizační verze těchto problémů, kdy se vyžaduje, aby nějaký atribut byl co nejlepší, navíc ještě optimalizační evaluační problém (např. zjisti nej. možnou cenu C odpovídající urč. konfiguraci)
+    \item Deter. Turingův stroj - násl. stav lze jedn. určit na základě čteného symbolu a akt. stavu.
+    \item Nedet. Turingův stroj - umožňuje v každém kroku rozvětvit výpočet na n větví.
+    \item $P \subseteq NP$; $NPH \cap NP=NPC$; P versus NP problém
+    \item Třída P - obs. vš. problémy řešitelné pomocí det. Tur. stroje v polyn. čase, tedy $O(n^k)$, kde $n$ je vel. instance a $k$ je konečné číslo., např. nalezení kostry grafu
+    \item Třída NP - to samé akorát nedeter., případně výsledek se dá ověřit v polyn., např. nalezení Hamilt. kružnice
+    \item Třída co-NP - inverzní k NP, nemáme certifikát, např. zda je graf prost Hamilt. kružnic
+    \item Třída PO - např. problém nejkratší cesty v grafu
+    \item Třída NPO - velikost výstupu instance je omez. polynomem ve vel. instance, např. optimal. verze TSP
+    \item Problém $x$ je NPH tehdy, pokud existuje NPC problém $y$ takový, že je možné $y$ redukovat na $x$ v polyn. čase. U problému v NPH, který není v NPC, podle mě není možné ověřit řešení v polynomiálním čase.
+    \item NPC jsou vzájemně převoditelné nejtěžší problémy v NP (SAT, 3-SAT, batoh).
+    \item Třída NPI=NP-P-NPC - problémy, kde neumíme nalézt polyn. alg., ani na ně převést SAT
+    \item Turingova redukce - deter. Tur. stroj, volání podprogramu
+    \item Karpova redukce - deter. Tur. stroj, převedení na jiný problém
+    \item Cookova věta: existuje NPC problém
+    \item Jak dokážu, že je algoritmus NPC: najdu NP problém, kterej na tenhle NPC problém můžu převést (Karpova redukce)
+    \item Nakonec zřejmě chtěl slyšet, že na NPH se hůře hledají heuristiky než na NP
+\end{itemize}
+
+
+
+\subsection{Experimentální vyhodnocení algoritmů, zejména randomizovaných.}
+
+\begin{itemize}
+    \item Pseudopol. alg. - závisí polynomiálně na vel. instance, dále na paramteru, který s vel. instance nesouvisí.
+    \item Aproximativní alg. - každou instanci vyřeší v polyn. čase v rel. chybou $\epsilon$.
+    \item SAT - součin součtů, zda je pro nějké ohodnocení pravdivé (MAX-SAT - kolik klauzulí lze splnit).
+    \item Při neúnosném NPO problému máme na výběr: deter. metoda (zaručuje chybu v nejh. případě, patří: aprox. alg., pseudopol. alg.), náhodná a kombinovaná metoda (dává statistickou chybu v prům. případě, patří sem randomiz. alg.).
+     \item Randomiz. alg. - nedeter. alg, rychlejší řešení těžko řešitelných problémů (např. NPC), různé výsledky, více spuštění, kromě klasického vstupu má ještě vstup random. čísel., např. MAX $k$ SAT (Monte Carlo = MC), Miller-Rabinův test prvočís. (MC), Quicksort (LV)
+     \begin{itemize}
+         \item 2 druhy rand. alg.: typu Monte Carlo (pevný čas. optimaliz. kritérium náhodné - může být ohraničeno), typu Las Vegas (přesné řešení, čas běhu náhodný - může být ohraničen).
+        \item Zabýváme se buď střední hodnotou kvality nebo času běhu alg. (v analýze/experimentech)
+        \item Výhody: strukt. jednoduchost, očekáv. kvalita výsledku může být lepší než zaruč. kvalita deter. pomalých alg., nezávislým opakováním se dá zlepšit kvalita
+        \item Experiment - plán exp. $->$ provedení exp. $->$ interpretace výsledků $->$ odpověď $->$ otázka $->$ plán exp.
+        \begin{itemize}
+            \item Otázky: Je alg. A lepší než alg. B? Pro určité instance jestli je to pravda atp.
+            \item Hodnotíme: kvalitu řešení (kde známe řeš. absolutně, při heuristikách relativně), výp. nár. (záleží na stroji, nejlepší měřit počet testovaných stavů).
+            \item Jaké případy: nejhorší, nejlepší, průměrny, v závislosti na parametru.
+            \item Výběr instancí: náhodně gen. (škál. rovn. rozd.), náhodně gen. s ohledem na exp., standardní bench.
+            \item Typy hodnocení: white box (známý alg., limit. počet inst., detailní měř.), black box (nezn. alg., kompletní počet inst., měř statist. dat, ověření kvality, výkonu).
+            \item Práce s parametry: nutno respektovat závislosti, popř. otestovat závislosti, nastavení paramterů je te cesta dalším stav. prostorem.
+            \item Vyhodnocení: v záv. na vel. inst. (šum - nutno více měření), kritické zhodnocení (jsou hodnoty spolehlivé a vysvětlitelné), výstup (kvantitavní data, poté nalézáme zákonitosti - histogramy, bodové grafy, takto získáme kvalitativní informace).
+            \item Příklady: WalkSAT, 3-SAT, náhodná procházka.
+        \end{itemize}
+     \end{itemize}
+\end{itemize}
+
+
+\subsection{Princip lokálních heuristik, pojem globálního a lokálního minima, obrana před uváznutím v lokálním minimu.}
+
+\begin{itemize}
+    \item Důležité pojmy: stav algoritmu, okolí stavu, k-okolí stavu, stavový prostor, sousední stav, graf stavového prostoru, heuristická funkce, greedy heuristika
+    \item Lokální minimum = všechny sousední stavy mají horší hodnotu optimalizačního kritéria.
+    \item Globální minimum = všechny stavy mají horší hodnotu optimalizačního kritéria.
+    \item Heuristiky se dělí na globální a lokální (mají lokální minimum na párku).
+    \item Od heuristiky očekáváme: použitelnost v praxi, možnost omezení a optimalizace (čas, přesnost), hledání přibližného nebo přesného řešení
+    \item Druhy: konstruktivní, iterativní, dvojfázová
+    \item Překonání lokálního minima: jednoduché (má to na párku), s návratem (z minima vycouvá), pokročilé
+    \item Praktické řešení: zvětšení okolí stavu, start z několika různých počáteních řešení, vracení se (best-first, backtracking -- nepolynomiální algoritmy), dočasné zhoršení (simulované ochlazování), více stavů najednou (genetické alg.), restrikce (tabu search)
+    \item Příklady: náhodná procházka, best first (best only?), first improvement
+    \item Dynamické programování pro batoh -- dekompozice podle celkové ceny:
+    \begin{itemize}
+        \item $W(0,0) = 0$
+        \item $W(0,c) = \infty$ pro všechna $c > 0$
+        \item $W(i+1, c) = \min(W(i, c), W(i, c-c_{i+1})+w_{i+1})$ pro všechna $i > 0$.
+        \item Sloupce jsou indexy věcí, řádky jsou celková cena batohu, uvnitř tabulky = váha batohu
+    \end{itemize}
+\end{itemize}
+
+\subsection{Princip genetických algoritmů, význam selekčního tlaku pro jejich funkci.}
+
+\begin{itemize}
+    \item Pojmy: Jedinec (fenotyp), genetická reprezentace (genotyp/chromozom), gen, alela, generace (populace), mutace, křížení, zdatnost (fitness), degenerace, konvergence, biodiverzita
+    \item \myimage{struktura_ga}
+    \item Princip: inicializace, selekce, křížení, mutace, reprodukce
+    \item Selekční tlak = pravděpodobnost výběru nejlepšího jedince
+    \begin{itemize}
+        \item velký tlak - nebezpečí degenerace populace a uváznutí v lokálním minimu
+        \item malý tlak - pomalá konvergence
+        \item liší se podle výběrového mechanismu
+    \end{itemize}
+\end{itemize}
+
+\section{TES}
+
+\subsection{Signály, systémy a jejich vlastnosti, automat jako popis systému.}
+
+\begin{itemize}
+    \item Systém má obvykle: komponenty, sadu znaků, nekončící vývoj, diskrétní kroky
+    \begin{itemize}
+        \item Abeceda = libovolná množina $\mathbf{S}$, prvky = znaky
+        \item Signál v diskrétním čase na $\mathbf{S}$ = nekonečná posloupnost prvků z $\mathbf{S}$
+        \item $\sum_\mathbf{S}$ = množina signálů na $\mathbf{S}$    
+    \end{itemize}
+    \item Popis systémů - black box/vnitřní popis
+    \item Black box = popis chování zvenku, relace mezi vstupními a výstupními signály. Vlastnosti:
+    \begin{itemize}
+        \item Receptivní -- pro každý vstupní signál existuje nějaký výstupní signál
+        \item Kauzální -- výstup závisi v každém okamžiku jen na minulosti
+        \item Deterministický -- každý vstup má přesně jeden výstup -- relace se poté stává funkcí
+        \item Bez paměti -- výstup závisí v každém okamžiku pouze na aktuálním vstupu
+    \end{itemize}
+    \item Vnitřní popis reaktivních systémů
+    \begin{itemize}
+        \item Automat (reprezentuje systém) je pěticí -- stavy, počáteční stavy, vstupy, výstupy, přechodová relace
+        \item Automat je deterministický právě když má přesně jeden počáteční stav, a když pro každý vstup a stav existuje právě jeden další stav a výstup.
+        \item Extended state machines = automaty s proměnnými (Př. Semafor: chodec zmáčkne tlačítko, po 30 vteřinách přepíná na zelenou:)
+        \item Hierarchické automaty = automaty s nadstavy a podstavy, rekurzivní skrývání/modelování podrobností.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Kompozice systémů a automatů (diskrétních, spojitých), synchronní reaktivní modely.}
+
+\subsubsection*{Kompozice systémů a automatů}
+
+\begin{itemize}
+    \item Synchronizovaná paralelní kompozice systémů -- systémy dělají vždy jeden krok spolu. Přechod dvojice (vstup prvního, vstup druhého) $\to$ (výstup prvního, výstup druhého) patří do synchronizované kompozice systémů, právě tehdy když (vstup prvního) $\to$ (výstup prvního) patří do prvního systému a zároveň (vstup druhého) $\to$ (výstup druhého) patří do druhého.
+    \item Synchronizovaná paralelní kompozice automatů -- Stavy nového automatu jsou vždy zkombinované stavy skládaných automatů, čili dvojice (stav prvního, stav druhého). Stejné platí pro vstupy a výstupy. Přechod mezi stavy nového automatu patří do přechodové relace, pokud přechod mezi jejich prvními složkami je součástí prvního automatu, a přechod mezi druhými složkami součástí druhého (stejné platí pro složky vstupů a výstupů).
+    \item Kaskádní kompozice systémů -- výstup prvního systémů = vstup druhého systému
+    \item Kaskádní kompozice automatů
+    \item Obecná kompozice -- synchronní reaktivní modely: libovolné propojení vstupů a výstupů (smyčky, více vstupů a výstupů, řízení toku). 
+    \begin{itemize}
+        \item Každá komponenta sítě musí obsahovat přechody mezi vstupem do ní (což může být přechod z jiné komponenty, nebo vstup sítě) a výstupem z ní (což může být přechod do jiné komponenty, nebo výstup sítě).
+        \item Roztrhání smyček = delay
+        \item Table Lookup (vyhledávácí tabulka)
+    \end{itemize}
+    \item Synchronní reaktivní modely jako automaty
+\end{itemize}
+
+\subsubsection*{Spojité modelování času}
+
+\begin{itemize}
+    \item Diskrétní čas -- stav bývá výsledkem minulého stavu. Spojitý -- „minulý stav“ postrádá smysl. Místo toho vektorové pole -- přiřazuje hodnotám reálných čísel směr, kterým se budou vyvíjet. Obyčejné diferenciální rovnice: $\dot{x} = f(x)$, přičemž f je vektorové pole.
+    \item Nedeterminismus -- obvykle pochází z okolí systému, neznámých detailů, detailů, které jsme nemodelovali.
+\end{itemize}
+
+
+\subsection{Typologie ověření správnosti systémů (testing, bounded model checking, unbounded model checking a jejich základní principy).}
+
+\begin{itemize}
+    \item \textbf{Testing} - vybíráme konečnou množinu $T$ konečných cest (testovací příklady), pro každé $t\in T$ ověřujeme, jestlí z $t$ můžeme usoudit $\not\models \Phi$, tj. na základě $t$ víme, že existuje protipříklad (cesta $\pi$ tak, že $\pi \not\models \Phi$)
+    \item Simulace - generování konečných cest
+    \item \textbf{Bounded model checking} - omezené ověřování modelů
+    \begin{itemize}
+        \item Cílem ověřování je zjistit, zda náš přechodový systém splňuje specifikaci $\Phi$ (to je LTL formule)
+        \begin{itemize}
+            \item přechodový systém ji splňuje pokud ji splňuje pro každou cestu (posloupnost stavů)
+        \end{itemize}
+        \item Problémy s ověřováním: je třeba to ověřit (zda splňuje speficik. LTL formule) pro každou cestu, cest může být nekon. mnoho a nekon. délky $->$ ověř. jen definovaný prefix cest (prvních $i$ stavů cesty) $->$ omezená (bounded) délka cesty
+        \item Ověřování modelů - je náročné ověřit všechny cesty $->$ snaha najít protipříklad
+        \begin{itemize}
+            \item Globally ok = pro cestu délky $n$ ověřujeme nějakou interpretaci I(ok) (např. \{1,2,3\}), tedy v cestě délky $n$ nesmíme vstoupit do jiného stavu než z té množiny, jinak G ok neplatí
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Unbounded model checking} - neomezené ověřování modelů - pro všechny cesty i nekon. délky (využití indukce)
+    \begin{itemize}
+        \item Invariant - množina obsahující všechny cesty délky $k$, které jsou podmnožinou I() (= množina stavů, na které platí daná stavová vlastnost), dalo by se říci něco jako podmnožina všech řešení z množiny I()
+        \item Induktivní invariant - pokud stav $x$ invariantu splňuje podmínky a stav $x^\prime$ vznikl přechodem z $x$ do $x^\prime$, pak $x^\prime$ ji také musí splňovat
+        \begin{itemize}
+            \item jinými slovy: když se ze stavu A můžeme dostat do stavu B, tak stav musí splňovat také danou podmínku, pakliže ji nesplňuje, tak se nejedná o induktivní invariant
+            \item Jejich výpočet: množina V musí obsahovat počáteční stavy a žádny krok nesmi opustit V
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Boolovská splnitelnost: algoritmy a jejich využití v bounded model checking.}
+
+\begin{itemize}
+    \item Pointa je v reprezentaci BMC (Bounded model checking) pomocí booleovské formule
+    \begin{itemize}
+        \item př. formule $(P\wedge Q)\vee(\neg Q\vee P)$ reprezentuje $\neg BMC(G ok, n)$, vstupem je tedy místo BMC bool. formule, výstupem je splňující evaluace, nebo "unsat", pokud není splnitelná $->$ máme tzv. SAT řešič
+    \end{itemize}
+    \item SAT řešič - vstupem bool. formule v CNF, výstupem splňující evaluace nebo unsat
+    \begin{itemize}
+        \item naivní algoritmus vyzkouší $2^v$ možností (všechny kombinace $v$ proměnných)
+        \item Simplifikace - uvažujeme pouze CNF formu (literál=proměnná či její negace, klausule=disjunkce literálů - or)
+        \begin{itemize}
+            \item Pokud je v klauzuli jen 1 literál $->$ musí být true (je to unit penetration).
+            \item Vyskytuje-li se proměnná v klauzulích jen poz./neg., můžeme ji přiřadit hodnotu tak, aby klauzule mohli být T = pure literal elimination.
+        \end{itemize}
+        \item CDCL (Conflict driven clausule learning)
+        \begin{itemize}
+            \item náhodně se ohodnocují proměnné, lze si představit jako strom, kde v každém uzlu se jde buď doleva nebo doprava (T nebo F) pro danou úroveň reprezentující konkrétní proměnnou
+            \item pokud vybrané ohodn. nikam nevedou, vrátíme se o několik úrovní výše a zkusíme jiné ohodn.
+        \end{itemize}
+        \item Lokální vyhledávání - neúplná heuristika, náhodně vybírá ohodnocení
+        \begin{itemize}
+            \item postupně se snažíme zvýšit počet splněných klauzulí
+            \item často rychle najde řešení, ale není úplná $->$ neprozkoumá všechny možnosti $->$ nelze s ní dokazovat nesplnitelnost
+        \end{itemize}
+        \item řešiče se rychle vyvíjejí, každoročně soutěž řešičů, dnes dokáží řešiče řešit obrovské SAT problémy
+    \end{itemize}
+    \item Případně tam frknout trochu PAA? Řešení SAT pomocí genetických algoritmů, heuristiky
+\end{itemize}
+
+
+
+\newpage
+\part{Oborové okruhy -- Znalostní inženýrství}
+
+\section{PDD}
+
+\subsection{Metody pro hodnocení relevance příznaků, heuristické metody pro výběr nejlepší podmnožiny atributů (FS), metody redukce počtu instancí (numerosity reduction).}
+
+\begin{itemize}
+    \item \textbf{Feature ranking and selection}
+        \begin{itemize}
+            \item hodně dostupných algoritmů, vybírají most informative variables (features)
+            \item Hlavní použití: redukce dimenzionality datasetu, najití optimálního subsetu příznaků, řazení příznaků na základě jejich významnosti.
+            \item FS metody se dají rozdělit na univariate (zvažují jeden příznak v jednu chvíli) a multivariate (zvažuje subsety příznaků), mezi multivariate metody patří (mohou být i v univariate, pokud se testuje jen jeden příznak):
+                \begin{itemize}
+                    \item Filter metoda - řadí příznaky nebo jejich subsety nezávisle na prediktoru (klasifikátoru).
+                        \begin{itemize}
+                            \item vyber příznaky, pak klasifikuj, robustní proti přeučení, používá různé statistické testy
+                        \end{itemize}
+                    \item Wrapper metoda - používá klasifikátor k ohodnocení příznaků či subsetu, rozdělení na training/validation/test dataset, používá crossvalidation
+                        \begin{itemize}
+                            \item vytvoř subsety příznaků, klasifikuj, vyber nej. subset, náchylný k přeučení
+                        \end{itemize}
+                    \item Embedded metoda - jako u wrapperu, the search is controlled by the algorithm constructing classifier, používá crossvalidation
+                        \begin{itemize}
+                            \item eliminuj nepotřebné příznaky tak dlouho dokud bude stejný výkon, výsledky podobné wrapperům, méně výp. náročné, méně náchylné na přeučení
+                        \end{itemize}
+                \end{itemize}
+            \item Univariate metody - jak relevantní je proměnná $x_i$ k predikci outputu - relevance, testy, závislost, korelace, pearsonův koeficient, mutual information, filtry, wrappery, embedded
+            \item FS metody (jiné dělení ještě): complete/exhaustive, heuristic, random, evolutionary
+        \end{itemize}
+    \item \textbf{Metody redukce počtu instancí (numerosity reduction)} - např. u kNN je výhodná (paměť a výpoč.)
+        \begin{itemize}
+            \item Voronoi diagram - rozdělení na oblasti, které pokrývají dané instance
+            \item Proximity grafy (poskytují různé definice souseda): nearest neighbour graf, minimum spanning tree, RNG (radiální sféry), Gabriel (2 body, kružnice), Delaunay (3 body, kružnice)
+            \item Skládá se z editování (odstranění šumu, aby vznikly homogenní clusteru) a konzdenzace (vybírá podmnožinu či generuje novou množinu tak, aby nedošlo k výrazné změně klasif. přesnosti)
+            \item Metody editace: Wilsonovo editování (odstraň body jiné třídy než většina sousedů), Multi-edit (opakovaný Wilson na náhodné části)
+            \item Metody kondenzace:
+                \begin{itemize}
+                    \item Neadaptivní (vybírá podmnožinu, zaměřuje se na instance na hranicích): CNN (začíná s jednou instancí v subsetu), RNN (další redukce CNN), IB3 (podobné CNN, confidence), DROP3
+                    \item Adaptivní (generuje nové instance): Prototype (vytvoří nové strategické body), Chen (centroidy), RSP (Chen s balanc. tříd)
+                \end{itemize}
+            \item Jak velký vzorek - závislé na počtu dost. dat, distribuci, hustotě, počtu proměnných, je dobré vzít třeba 10 instancí a udělat si křivku s distribucí a pak přidat dalších 10, pokud je stejná tak už nepřidávat, jinak přidat ještě
+        \end{itemize}
+    
+\end{itemize}
+
+
+\subsection{Algoritmy pro nahrazování chybějících hodnot. Detekce a ošetření odlehlých hodnot. Balancování a transformace dat.}
+
+\begin{itemize}
+    \item Metody redukce dat, které zároveň balancují data (takže patří asi jak do 1. tak do 2. ohruhu)
+        \begin{itemize}
+            \item Under-sampling metody - náh. elimin. instancí z major. třídy, může zahodit důležitá data
+                \begin{itemize}
+                    \item Tomek links - odstraňuje šum a instance na hranicích
+                    \item CNN - vybírá body blízko hranice mezi třídami, nejdřív 1 sample pak eventuelně další přídává
+                    \item One-sided výběr = Tomek links + CNN
+                    \item CNN + Tomek links - nalezení Tomkových spojení je drahé, tudíž lepší dělat na reduk. setu
+                    \item Neighbourhood cleaning rule - odstranění instancí major. třídy
+                \end{itemize}
+            \item Over-sampling metody (náh. replikace instancí z minor. třídy, může zvýšit overfitting): Smote - vytvoří nové body z minor. třídy pomocí interpolace mezi body z minor. třídy
+            \item Kombinace 
+            \begin{itemize}
+                \item Smote + Tomek links - Smote může vytvořit až moc umělých minor. bodů hluboko v prostoru major. bodů, Tomek data vyčistí, ale musí se použít na obě třídy, ne jen major.
+                \item Smote + ENN - ENN odstraní body jejichž třída je odlišná alespon v 2/3 NN
+                \item Nejlepší pro použití na datech s malým počtem positive bodů.
+            \end{itemize}
+        \end{itemize}
+    \item \textbf{Chybějící hodnoty} - těžko poznat jestli je hodnota chybějící nebo chybná, lze: odstranit záznamy, nahradit minimem/průměrem, nahradit pomocí kNN (nejlepší).
+    \item Konverze dat: binary-$>$numeric, ordered-$>$numeric (A-1,B-1.5), nominal-$>$few\_values (žlutá-100), nominal-$>$many\_values (vyber nejčastější, zbytek spoj dohromady)
+    \item Diskretizace dat (binning) - ve fázi čištění dat, užitečné pro generování přehledu dat
+        \begin{itemize}
+            \item Binning: equal-width (stejně velké intervaly), equal-height (nebo někdy depth nebo frequency, přibližně stejný počet instancí v každém intervalu
+            \item Outliers co dělat: nic, horní/spodní meze, nech na binningu, použítí shlukové analýzy
+            \item Shluk. analýza - pro nalezení outlierů, např. K-means, heirarchické shlukování
+        \end{itemize}
+    \item Výběr polí - zahodit pole s malou či žádnou variabilitou, zjistit počet unik. hodnot
+    \item Falešné prediktory (inf. leakers) - pole co korelují z cílovým chováním, v DB bez dat událostí, např. falešný prediktor šance že student uspěje v předmětu je jeho závěrečná známka
+    \item Selekce nejrelev. polí - nechat jen ty s největší přesností
+    \item \textbf{Balancování dat} - musí být vyvážené množství instanci z jedn. tříd, pro více tříd se to jmenuje Stratified sampling
+    \item \textbf{Transformace dat} - smoothing (odstraní šum), feature construction (vytvoř. nových příznaků ze zadaných), transf. na unif. distribuci, normalizace (min-max, z-score, decimal scaling, softmax scaling)
+\end{itemize}
+
+
+\subsection{Lineární projekce dat do prostoru o méně dimenzích (PCA, LDA), nelineární metody redukce dimensionality (Sammonova projekce).}
+
+\begin{itemize}
+    \item PCA se snaží zachovat varianci v datech (= information) -- hledá dimenze s největší variancí
+    \begin{itemize}
+        \item how it works: calculating the covariance matrix of the data (easy peasy) $\to$ calculating the eigenvectors and eigenvalues of the matrix (lemon squeezy) $\to$ sorting these eigenvectors according to their eigenvalues   
+    \end{itemize}
+    \item LDA se snaží dimenze redukovat tak, aby se zachovala co největší odlišnost tříd
+    \begin{figure}
+        \centering
+        \begin{minipage}{0.45\textwidth}
+        \myimagesuperbig{PCA}
+        \caption{PCA}
+        \label{fig:PCA}
+        \end{minipage}%
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+        \myimagesuperbig{LDA}
+        \caption{LDA}
+        \label{fig:LDA}
+        \end{minipage}
+    \end{figure}
+    \item PCA je unsupervised, LDA supervised (taky se používá pro klasifikaci)
+    \item Sammonova projekce 
+    \begin{itemize}
+        \item snaží se zachovat vzdálenost jednotlivých bodů od sebe
+        \item počítá Sammonův stress (error), což je error funkce, která kouká na vzdálenost bodů v původním prostoru a na jejich vzdálenost po projekci do menšího prostoru
+        \item tahle funkce je minimalizována třeba pomocí gradient descent
+    \end{itemize}
+\end{itemize}
+
+\section{ADM}
+
+\subsection{Metody klasifikace a regrese. Algoritmus nejbližších sousedů. SVM klasifikátory. Rozhodovací stromy a jejich varianty (Random forest, Boosted trees).}
+
+\begin{itemize}
+    \item Metodiky: SEMMA, CRISP-DM
+    \item Modely: predikční (klasifikace, regrese), popisné (segmentace, shlukování)
+    \item Šum, bias, variance
+    \item Fáze učení (trénování) a fáze použití (vybavování)
+    \item Chyba modelu: klasifikace: procento nesprávných klasifikací, regrese: součet čtverců odchylek, průměr čtverců, odmocnina průměru
+    \item Metrika = vzdálenost vzorů -- euklid, manhattan, cebysev
+    \item Cross-validation: k-fold, leave-$p$-out
+    \item kNN -- velmi populární a pomalé, kruciální $k$, použitelné i pro regresi
+    \item Decision trees
+    \begin{itemize}
+        \item Split criteria: information gain (change in information entropy), information gain ratio (normalised), $chi^2$ test, gini index
+        \item When to stop: only one class in the set, too few instances in the set, no more information gain
+        \item Advantages: immediate insight, fast, easy to alter
+        \item Disadvantages: bad for continuous variables, limited accuracy, may be unstable
+        \item Random forest: N random subsets (with repetition) for N trees $\to$ e.g. majority voting
+        \item Boosted trees (xgboost) - malé, jednoduché stromy jsou pospojovány za sebou. První fituje samotná data, ten druhý za ním fituje residua = rozdíl predikcí prvního stromu a true hodnot, ...
+    \end{itemize}
+    \item SVM -- perceptron s lineární výstupní funkcí: linear, multiclass (one-against-all, one-against-one), non-linear (jadernou transformací se přejde do vyšší dimenze a tam už se jede lineárně; poté zpět o dimenzi níž). Použití: filtrace spamu, obsahové filtrování (videa, obrázky) -- doporučování, detekce malware nebo síťových útoků
+    \item Ensemble metody: Bagging (Bootstrap Aggregating), boosting, stacking
+\end{itemize}
+
+\subsection{Lineární, polynomiální a logistická regrese. Klasifikace pomocí perceptronu. Vícevrstvá perceptronová síť a její učení.}
+
+\begin{itemize}
+    \item Lineární regrese = aproximace pozorovaných hodnot daným typem funkce, parametry funkce lze určit metodou nejmenších čtverců (ta se v podstatě rovná regresi)
+    \item Gro metody: Funkce $f(x) = \beta_0 + \beta_1 x + \epsilon$. Chceme minimalizovat sumu errorů $\sum_i (f(x_i) - y_i)^2$, tj. hledáme optimální bety. Rozjedeme derivace a vyjde nám $\beta_1 = \dfrac{S_{xy}}{S_{xx}}, b_0 = \overline{y} - \beta_1 \overline{x}$. Výběrová kovariance $S_{xy} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{n-1}$ a  výběrový rozptyl $S_{xx} = \dfrac{\sum_i (x_i - \overline{x})^2)}{n - 1}$.
+    \item Polynomiální regrese: $f(x) = \beta_0 + \beta_1 x + \beta_2 x^2$
+    \item Obecná metoda nejmenších čtverců: $y = \mathbf{X}\beta, \beta = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^Ty$
+    \item Logistická regrese = taková lineární regrese pro klasifikační problémy. Docela rozumně vysvětleno \href{https://www.quora.com/What-is-logistic-regression/answer/Thirumal-Venkat-1}{zde}. Používá logistickou distribuci místo normální, jsou hodně podobný, ale logistická funguje líp na problémy s výstupem $[0,1]$.
+    \item Nelineární regrese -- solved pomocí Gauss-Newtonovy metody.
+    \item Perceptron -- potřeba lineární separability klasifikačního problému. Jsou to klasický jednoduchý neurony: vážený vstupy jsou sečteny, k tomu přidán bias a šup s tím do aktivační funkce -- Heavisideova fce = 0 pro vstup menší než 0; 1 pro vstup většírovno 0. Učení probíhá pomocí postupnýho upravování vah: $\Delta w = \epsilon (\delta - f(x))x$. Kroneckerova delta je správný výstup, $f(x)$ je výstup perceptronu. $\epsilon$ je rychlost učení. Věta o konvergenci učícího algoritmu perceptronu říká, že to funguje.
+    \item Vícevrstvý perceptron: sigmoidální funkce místo Heavisideovy (sigmoid, hyperbolický tangent). Učení pomocí backpropagace. Prej existujou i lepšejší metody dneska: metody sdružených gradientů, různých quasinewtonovských metod, a především různých variant Levenberg-Marquardtovy metody.
+\end{itemize}
+
+\subsection{Shluková analýza (algoritmy K-středů, hierarchické shlukování, neuronový plyn, SOM).}
+
+\begin{itemize}
+    \item Shluková analýza = unsupervised. Optimalizační problém, neznámé: počet shluků, přiřazení dat do shluků.
+    \item Hieararchické shlukování = dendrogram. Vyhodnocení vzdálenosti shluků: metoda nejbližšího/nejvzdálenějšího souseda, centroidní metoda, metoda průměrné vazby, Wardova metoda
+    \item CPCC (cophenetic correlation coefficient) -- říká, jestli data opravdu obsahují shluky (čím větší tím lepší). Je to normovaná kovariance vzdáleností v původním prostoru a v dendrogrmau.
+    \item k-means
+    \item Silhouette -- zjišťuje, jak dobře jsou data klastrována. $s(i) = \dfrac{b(i) - a(i)}{\max{a(i), b(i)}}$, $a(i)$ je průměrná vzdálenost samplu $i$ od samplů ze stejného klastru. $b(i)$ je průměrná vzdálenost samplu $i$ od samplů ze ostatních klastrů. $s$ může být -1 až 1, čím větší, tím je ten sample líp zařazen.
+    \item SOM = neurony jsou rozesety ve 2D mapě a postupně se posouvají (competitive learning - vítězný neuron bere vše) tak, aby výsledná mapa co nejlépe překrývala trénovací data. Tj. v okolí (třeba gausovském) každého samplu se najde nejbližší neuron a ten se posune ještě blíž.
+    \item \myimage{SOM}
+    \item U-matice = zobrazuje vzdálenosti mezi jednotlivými neurony v SOM
+    \item \myimage{umatrix}
+    \item Tečky jsou neurony. Tmavý políčka značí velkou vzdálenost mezi nima, světlý políčka malou vzdálenost. Neurony vpravo nahoře jsou tedy docela oddělenej klastr od ostatních.
+    \item P-matice = odráží hustotu dat. Doplňuje informace z U-matice.
+    \item U*-matice = kombinace U-matice a P-matice. Vzdálenosti mezi sousedními neurony (neurony a a b v mřížce) jsou vypočítány z U-matice a jsou váženy hustotou vektorů kolem neuronu a.
+    \item Nevýhody těchto matic: nejsou intuitivně interpretovatelné, při novém naučení na stejných datech můžou vypadat jinak. Lepšejší: PCA, LDA, Sammonova projekce 
+    \item Neuronový plyn = podobný SOM, okolí neudává původní prostor dat, ale prostor neuronů. 
+\end{itemize}
+
+
+\section{VMW}
+
+\subsection{Textové a bag-of-words modely pro content-based retrieval. Podobnostní model vyhledávání, podobnostní míry a dotazy.}
+
+\begin{itemize}
+    \item Bag-of-words model - set slov, u každého četnost, běžně se používá u klasifikace, také pro feature generation
+    \item N-gram model - to samé jako bag-of-words model akorát pro n-tice slov
+    \item Bag of features (bag of visual words) - nemáme anotaci obrázku, vyvoříme ji (visual words místo slov) pomocí jeho obsahu, features jsou podobrázky, visual vocabulary (vezmi všechny feature vektory, cluster them, použij centroidy jako visual words)
+    \item Information retrieval pojmy: binární podobnost, způsoby vyhledávání (dotazování, browsing, filtrování), kvalita vyhledávání (měřítka kvality: přesnost, úplnost), ground distance, deskriptor, stemming
+    \item Podobnostní model vyhledávání - určuje způsob vyhodnocení dotazu nad DB dat, cílem dostat co nejvíce dokum., které jsou relevantní, eventuelně i seřazené podle relevance
+    \begin{itemize}
+        \item Vyhl. v textových dok. - extrakce termů, odfiltrují se zbytečné věci (např.the/a), každý dok. je pak reprentovám množinou termů: kolekce (množ. všech dokumentů a jejich id), slovník (množ. všech termů a jejich id ze všech dokumentů v kolekci), dokument (množina termů v dokumentu)
+        \begin{itemize}
+            \item Modely: Booleovský (reprez. bitovým vektorem), Vektorový (reprez. vektorem vysoké dimenze)
+        \end{itemize}
+        \item Vyhl. multimedií - anotace dat a vyhl. v metadatech, přímé hledání v obsahu (extrakce nějakých vlastností množina vlastností potom tvoří deskriptor daného objektu)
+    \end{itemize}
+    \item Podobnostní míry - říká nám jak moc jsou 2 objekty podobné
+    \begin{itemize}
+        \item Metrika - musí splňovát tyto vlastnosti: reflexivita, nenegativita, symetrie, trojúh. nerovnost
+        \item Nemetrika - každá podobnostní funkce, která nesplňuje postuláty metricity
+        \item Vektorové vzdálenosti: $L_p$ vzdálenost (Minkowskiho, $L_1$ Manhattonská, $L_2$ Euklidovská, $L_\infty$ Čebyševova), zlomková $L_p$, kosinová/uúhlová
+        \item Histogramové vzdálenosti: vážená Eukl. vzd. $wL_2$ (každá dimenze má svou váhu), statistické (Kullback-Leibler divergence, Jeffrey divergence, Quadratic Form Distance, Earth-mover's vzd.)
+        \item Další vlastnosti vzdálostí: skládání metrik, skládání nemetrik, vektorové prostory
+        \item Vzdálenost řad: dynamic time warping distance (umí natáhnout jednu řadu na délku druhé)
+        \item Vzdálenost řetězců: editační vzd., Hammingova vzd., Longest Common subsequence
+        \item Vzdálenost množin: Jaccardova vzd., Hausdorffova vzd.
+        \item Vzdálenost grafů: tree edit vzdálenost
+        \item Kombinované vzdálenosti: deskriptor se skádá z více sub-deskriptorů (každý má vlasntí podobnostní prostor), pro každý dotaz se vyhodnocuje jiná sada sub-deskriptorů
+    \end{itemize}
+    \item Podobnostní dotazy - způsob zadání dotazu systému, který podle konkrétního modelu upravuje množinu objektů, které vrací jako vyhovující dotazu
+    \begin{itemize}
+        \item Jednoduché dotazy: range query, kNN dotaz, RkNN (Reverze kNN)
+        \begin{itemize}
+            \item Pokročilé dotazy - ve velkých DB může být mnoho duplikátů a kNN ztrácí svou sílu, např. DkNN (Distinct kNN), víceobjektové dotazy
+        \end{itemize}
+        \item Dotazovací jazyky - rozšíření SQL o nové predikáty do klauzulí WHERE a FROM (např. range, kNN...)
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\subsection{Extrakce vlastností z multimédií pro potřeby vyhledávání - techniky pro obrázky, audio, video, geometrie. MPEG-7 deskriptory, lokální obrazové deskriptory (SIFT, SURF).}
+
+\begin{itemize}
+    \item Obrázky
+    \begin{itemize}
+        \item Vlastnosti: lokální/globální, low level (barva, odstín)/high level (objekty)
+        \item MPEG-7 deskriptory: rozhraní pro popis multimedií s cílem efektivního vyhledávání (formát založen na XML)
+        \begin{itemize}
+            \item Deskriptory (D): založené na katalozích (název, autor, práva, popis), sémantice (kdo, co, kdy a kde – informace o objektech a událostech), syntaxi (pro CBR, barva obrazu, tón zvuku) a technologii (formát, velikost, vzorkovací frekvence)
+            \item Popisová schémata (DS) popisují strukturu a sémantiku vztahů mezi komponentami D nebo DS – typ média, jeho původ, možnosti použití, strukturální vlastnosti nebo libovolný text
+            \item Data Description Language = všechno to definuje
+            \item Deskriptory barvy (deskriptor pro barevný prostor -- např. EGB, pro kvantizaci barev, pro dominantní barvu, scalable colour D, colour layout D, colour structure D)
+            \item Deskriptory textury (homogeneous texture D, texture browsing D, edge histogram D)
+        \end{itemize}
+        \item Local image features
+        \begin{itemize}
+            \item Detekce hran a shluků dat (hrana = změna jasu)
+            \item vyhledávání určitých významných bodů zájmu (identifikovány jako lokální maxima nebo minima z Difference of Gaussians (DoG) v obrázku o různých měřítcích)
+            \item SIFT (Scale-invariant feature transform) = Automatické nalezení korespondencí mezi dvojicí obrázků, použití: porovnávání nebo rozpoznávání obrázků
+            \item SURF (Speeded up robust features) = Body zájmu nejsou založeny na histogramu (na rozdíl od SIFTU) ale na součtu intensit. Mezi hlavní rozdíly, které přispívají k výraznému zrychlení, je nahrazení konvolučního jádra podle derivace gaussovy funkce jádry založenými na funkci obdélníkové.
+            \item Vlastnosti tvarů či shoda tvarů (k-means)
+        \end{itemize}
+    \end{itemize}
+    \item Video
+    \begin{itemize}
+        \item Jednotlivé framy (analýza neprobíhá), shot (záběr, zajímavé pro přechody mezi záběry -- poměr změny hran), scéna (množina souvisejícíh záběrů), celé video -- \textit{vlastně vůbec nechápu proč tu tenhle seznam vůbec je, wtf}
+        \item Keyframes = Sled framu (obrazku), ktere nejak popisuji video = hodi se pro tvorbu deskriptoru. lze na ne pouzit image retrieval. 2 typy: highlighting (ty nejpodstatnejsi), summarizing (celkove)
+        \item MPEG-7 \& video -- GoF/GoP deskriptor (group of frames/pictures, založeny na barvách a histogramech, I-frame, P-frame, B-frame), lokalizační deskriptor (chci okno, dám tam čtverec a doufám, že to najde), motion deskriptor (motion activity, camera motion, parametric motion, motion trajectory)
+    \end{itemize}
+    \item Audio, hudba, melodie
+    \begin{itemize}
+        \item Fourierova transformace -- z časové domény do frekvenční (užitečné např. pro komprimaci zvuku -- mp3)
+        \item Spektrogram -- vizuální reprezentace zvukového signálu
+        \item \myimage{spektrogram}
+        \item MPEG-7 -- 17 nízkoúrovňových a 5? vysokoúrovňových deskriptorů. 
+        \begin{itemize}
+            \item Základní spektrální analýzy: AudioWaveform (min max hodnoty amplitudy v time frames), AudioPower (okamžitý vyhlazený výkon zvukového signálu), AudioSpectrumEnvelope (frekvenční spektrum), AudioSpectrumCentroid (těžiště frekvenčního spektra), AudioSpectrumSpread, AudioSpectrumFlatness
+            \item Základní parametry signálu: AudioHarmonicity, HarmonicRatio (míra podílu harmonických složek ve spektru), UpperLimitOfHarmonicity (odhad frekvence, po kterém spektrum již nemá žádnou harmonickou strukturu), AudioFundamentalFrequency
+            \item Časové deskriptory: ADSR zvlnění (attack, decay, sustain, release), LogAttackTime, TemporalCentroid, HarmonicSpectralCentroid, HarmonicSpectralDeviation, HarmonicSpectralSpread, HarmonicSpectralVariation, SpectralCentroid, Mel-FrequencyCepstrumCoefficients (vynikající funkce vektoru představujícího lidský hlas a hudební signály, slouží především k rozpoznávání řeči a hudebnímu vyhledávání, žánrová klasifikace, audio podobnosti)
+        \end{itemize}    
+    \end{itemize}    
+    \item Vyhledávání 2D tvarů a 3D modelů
+    \begin{itemize}
+        \item MPEG-7 \& tvary -- region shape desk, contour shape desk, uzavřené/otevřené polygony, porovnávání tvaru DTW, porovnávání tvaru pomocí nejdelší společné sekvence LCSS
+        \item 3D model -- transformation to 2D shape retrieval, skeletonizace, 3D interest points, porovnávání siluety
+    \end{itemize}
+\end{itemize}
+
+
+
+\section{PDB}
+
+\subsection{Vyhodnocování a optimalizace SQL.}
+
+\begin{itemize}
+    \item Stavy v diagramu transakce: aktivní (na počátku), částečně potvrzený (po provedení poslední operace transakce), chybný (nelze pokračovat v normálním průběhu), zrušený (stav nastane po skončení operace rollback), potvrzený (po úspěšném vykonání commit)
+    \item Způsoby uložení:
+        \begin{itemize}
+            \item Interní struktura B-stromového indexu - listy jsou zřetězené, přístup na disk je při každém skoku: z rodiče na potomka (proto je mělký), z listu (kde je adresa dat. segmentu) k samotnému řádku
+            \item Indexově organizovaná tabulka - podobné B-stromovému indexu, ale v listech jsou přímo data, ne jen index
+            \item Tabulka ve shluku (cluster) - náhrada spojení přes klíč (v dat. bloku je záznam z tabulky a hned pod ním záznamy z jiné tabulky), které k němu patří
+        \end{itemize}
+    \item Fáze zpracování SQL příkazu: 1) převod do vnitřní formy 2) konverze do kanonického tvaru 3) optimalizace (a. vyčíslení alternativních prováděcích plánů b. výběr toho s nejnižší cenou c. transformace dotazu) 4) plán vyhodnocení 5) generování kódu
+    \item Výpočet dotazu - podle prováděcí metody, opírá se o statistiky nad tabulkami a indexy, počítá se I/O
+    \item Statistiky tabulek (vše v tabulce $R$): počet řádků $N_R$, počet různých hodnot atributu $A$ je $V(A,R)$, počet stránek v tabulce (kB) $P_R=N_R/B_R$, blok faktor (prům. počet řádek v jedné stránce) $B_R$, počet bloků co se vejde do paměti $M$
+    \item Statistiky indexů: faktor větvení (počet přímých potomků, $50-100$) $f(A,R)$, hloubka indexového stromu ($2-3$) $I(A,R)$, počet bloků v listu $p(A,R)$, počet záznamů v listu $B_i(A,R)$
+    \item Různé metody selekcí pro:
+    \begin{itemize}
+        \item Tabulku: 1) unikátní atribut - průměrně $P_{emp}/2$, 2) není unikátní - full table scan
+        \item B-stromový index (data v blocích nejdou za sebou jako indexy, pro každý řádek nutno přitoupit do datového bloku zvlášť, počet hledaných záznamů $N_{hz}$): 1) $N_{hz}=1$, $cena=I(A,R)+1$,  2) $cena=I(A,R)+N_{hz}/B_i+N_{hz}$
+        \item Cluster (clusterový index, podobné B-stromu, data v dat. blocích za sebou jako indexy B-stromu): 1) $cena=I(A,R)+1$, 2) $cena=I(A,R)+N_{hz}/B_i+N_{hz}/B_E$
+        \item Indexem organizovaná tabulka (data fyzicky seřazena přímo v B-stromu, tozn. že odpadá cesta do dat. bloku): 1) $cena=I(A,R)$, 2) $cena=I(A,R)+N_{hz}/B_i$
+    \end{itemize}
+    \item Algoritmy spojení (počet bloků paměti $M$ - 3 je minimum) 
+    \begin{itemize}
+        \item Nested loops: 1) $M=3$ platí $cena=P_{mensi}+P_{mensi}*P_{vetsi}$, 2) $M=4$ platí $cena=P_{mensi}+(P_{mensi}-1)*P_{vetsi}$, maximální počet $M$ které efektivně využijem záleží na $P_{mensi}$
+        \item Merge join (seřadíme první, seřadíme druhou, sekvenčně projdeme): $M=3$ platí $cena=2*P_E*\log(P_E)+2*P_D*log(P_D)+P_E+P_D$, idealní takové $M$ abychom dokázali seřadit větší relaci v 1 kroku
+        \item Hash join - menší vnější, pomocí vnější vytvoří hash tabulku do větší, tato tabulka se načte do paměti a pak se prochází větší tabulka a k řádkům se hledají odpovídající řádky
+    \end{itemize}
+    \item Prováděcí plán - při vyhodnocování jsou důležité různé statistiky (vel. tabulky, vel. indexu, atd.)
+        \begin{itemize}
+            \item Podle statistik se DBMS rozhodne při vytváření prováděcího plánu a ten se optimalizuje na nejmenší počet I/O operací
+        \end{itemize}
+    \item Metody zpracování: 1) On-the-fly (pipeline, rovnou se vyhodnocuje) 2) Materialization (ukládání mezivýsledků)
+    \item Vytvořené plány jsou ukládány a kdyžtak znovu použity s jinými parametry třeba.
+\end{itemize}
+
+\subsection{Databázové modely a dotazovací jazyky.}
+
+\begin{itemize}
+    \item Databázový model = typ datového modelu, který určuje strukturu databáze a říká, jak tam data budou ukládána a organizována
+    \item Relační vs objektová tabulka: řádky, sloupce, omezené množství datových typů, cizí klíče vs třídy s atributy a metodami, zapouzdřením, dědičností a abstraktními datovými typy
+    \item BigData = buzzword. high Volume, Velocity, Variety
+    \item NoSQL (not only sql) databáze: 
+    \begin{itemize}
+        \item Motivace: Klasické relační databáze jsou navrženy do OLTP systémů a dodržují ACID (Atomicity, Consistency, Isolation, Durability). NoSQL jsou BASE (Basically Available -- většinu času dostupná, Soft state -- stav systému se může změnit i bez inputu, Eventual consistency -- systém se časem stane konzistentní, pokud teda nepřijde nový input)
+        \item Typická charakteristika: nerelační, distribuované, horizontálně škálovatelné (přidávání uzlů) opensource, schema-free, jednoduché API, big DATA
+        \item Klasifikace: široké sloupce/rodiny sloupců (BigTable, Hadoop/HBase, dokumentové úložiště (např. JSON, XML -- MongoDB, Terrastore), key-value (LevelDB, HamsterDB), eventually consistent key value store (Amazon Dynamo, Voldemort), grafové db (Neo4J, HyperGraphDB)
+        \item XML databáze
+        \begin{itemize}
+            \item schema-free/schema-based
+            \item ukládání: filesystem aka texťák (easy s existujícím API, ale pomalé a neefektivní), XML-enabled (aka naperu XML do relační db), native XML (využívá B-stromy)
+            \item jazyky pro dotazování: XPath, XQuery
+        \end{itemize}
+        \item SQL/XML: rozšíření SQL o XML, Oracle, IBM, i trochu MS SQL.
+        \item Sedna: schema-based, B-trees 
+        \item Grafové db: uzly, hrany, bezindexová sousednost (uzly obsahují přímé odkazy na sousedy), využití = FACEBOOK, vazby jednosměrné/obousměrné, traverzování = průchod grafem umožňující navštívit všechny vrcholy (BFS, DFS)
+        \item MapReduce: map rozdělí data mezi nody, a reduce je pak spojí a třeba něco spočítá. Fault tolerant. Apache Hadoop.
+        \item RDF (Resource description framework): a framework for representing information in the Web. Resource: anything that is identifiable by IRI. Triple: Subject - Who, Predicate - Property or characteristic, Object - value of property. SPARQL -- query language for RDF. Používá se pro semantic web
+        \item Key-Value db: Simplest NoSQL data store -- hash table. Riak (keys in buckets, usage: HTTP), Redis 
+    \end{itemize}
+\end{itemize}
+
+\subsection{CAP teorém a NoSQL databáze.}
+
+\begin{itemize}
+    \item CAP = říká, že v distribuovaných systémech je možné dodržet jen dvě ze tří uvedených vlastností: Consistency (Every read receives the most recent write or an error), Availability (Every request receives a (non-error) response – without guarantee that it contains the most recent write), Partition Tolerance (The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes).
+    \item NoSQL (not only sql) databáze: o otázku výše
+\end{itemize}
+
+
+\section{PIS}
+
+\subsection{Architektury informačních systémů - distribuované systémy v architektuře client server a centralizované systémy s v třívrstvé architektuře s lehkým klientem, využití Cloud computingu.}
+
+\begin{itemize}
+    \item \textbf{Distribuované systémy v architektuře client server}
+        \begin{itemize}
+            \item Distribuované systémy - distr. zpracování, distr. data
+                \begin{itemize}
+                    \item Výhody: sdílení komponent, specializace komp., rozšiřitelnost a škál.
+                    \item Nevýhody: složitost, vysoké požadavky na síť
+                \end{itemize}
+            \item Klient-server model - popisuje komunikaci mezi konzumentem služeb (klient) a poskytovatelem služeb (server)
+                \begin{itemize}
+                    \item nezávislé par. procesy, na jendom či více počítačích, mají své informace u sebe, komunikují defin. protokolem
+                    \item Evoluce: 1) 2-vrstvý model 2) 3-vrstvý model 3) N-vrstvý model
+                \end{itemize}
+            \item Gartner model distr. systému - presentation layer, processing layer, data layer (hodně zjednodušeně)
+            \item Komunikace v distr. systému: (synch., asynch.), (pull model, push model), (přímá, zprostředkovaná), (request/response, fire and forget), (přímo adresované, nepřímo adr.)
+        \end{itemize}
+    \item \textbf{3-vrstvá arch.} - centralizované systémy
+        \begin{itemize}
+            \item Vrstvy: prezentační (tenký klient, žádná aplikační logika), aplikační, datová
+                \begin{itemize}
+                    \item Aplikační a datová - na serveru - central., snadná škál.
+                    \item Každá vrstva může být vyvíjena/měněna nezávisle.
+                    \item Výhody: malý síť. provoz, při změně apl. logicky stačí akt. jen server, klient nemusí znát kde jsou data, sdílení přip. k DB, standardiz. SQL
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{Využití Cloud computingu - Architektura inform. systémů v cloudu}
+        \begin{itemize}
+            \item Typy: Cloud Clients (mobile app, thin client, web browser), SaaS (email, virtual desktop, communication, games), PaaS (DB, web server), IaaS (virt. machines, storage, network, load balancers)
+            \item Business výhody: není třeba investovat peníze, je to hned, platím jen to co potřebuju, výkon mám kdy potřebuju
+            \item Technické výhody: auto-scaling, proactive-scaling (zátěž), lepší vývoj. cyklus a testovatelnost
+            \item Návrh: rozšiřitelnost, oddělení komponent, elastičnost (paralelní procesy), statická data udržovat u uživatele a naopak
+        \end{itemize}
+\end{itemize}
+
+\subsection{Práce se vstupními a výstupními daty v informačních systémech - konsolidace, normalizace, agregace, Key Performance Indicators (výkonové ukazatele).}
+
+\begin{itemize}
+    \item Konsolidace = sběr a integrace dat z více zdrojů do jednoho místa (odstraňuje duplikace, snižuje náklady na údržbu)
+    \item Normalizace = proces vytváření malých, stabilních a flexibilních datových struktur z komplexních skupin dat (takový to 1NF, 2NF, 3NF, BCNF)
+    \begin{itemize}
+        \item Optimalizace tabulek, klíčů, sloupců a vzájemných vztahů v relačních databázích
+        \item Výhody: integrita dat (updatem nic nerozbiju), optimalizované dotazy, rychlejší řazení a update, zlepšení řízení souběžného přístupu
+        \item OLTP (OnLine Transaction processing) -- INSERT, UPDATE, DELETE -- vyžaduje normalizace vs. OLAP (.. analytical ..) -- jen análýza, nevyžaduje normalizaci.
+        \item Normalizovaná data je poté možno zvalidovat (odstranění kódování a převod do jedné znakové sady)
+    \end{itemize}
+    \item Agregace (seskupování) = OLAP. Komponenta BI -- dolování a analýza dat, např. statistické analýzy.
+    \item Key Performance Indicators = pomůcka pro měření výkonnosti (úspěšnosti) organizace
+    \begin{itemize}
+        \item Skládá se z několika dimenzí (oblastí), každá má své metriky
+        \item Proces identifikace KPI: 1. definovat byznys procesy a jejich požadavky. 2. měřit kvantitativní a kvalitativní ukazatele těchto procesů a porovnávat výsledky se stanovenými cíli. 3. prozkoumávat možné změny v procesech, které umožní dosažení cílů.
+        \item Balanced Scorecard = Metoda (nástroj) v managementu vytvářející (reálnou) vazbu mezi strategií a operativními činnostmi s důrazem na měření výkonu. Dimenze: finance (obrat, tržby, zisk na zakázku, produktivita na pracovníka), zákazníci (podíl na trhu, spokojenost zákazníka), interní procesy (počet prodaných produktů, doba dodávky), učení se a růst (počet seniorních specialistů)
+    \end{itemize}
+    \item Reporting = Činnost spojená s dotazováním se do databází pomocí jejich standardních rozhraní (SQL dotazy). OLAP.
+    \item Vizualizace = Obrázek za 1000 slov -- vytváření, upravování, zkoumání grafíků. Dashboard = tachometr, aktuální informace (např. nejdůležitější KPI) vs Scoreboard = navigace, celkový pohled.
+\end{itemize}
+
+\section{MVI}
+
+\subsection{Evoluční algoritmy, schémata, diversifikace populace.}
+
+\begin{itemize}
+    \item \textbf{Typy evolučních algoritmů}: GA, GP, EP, neuroevoluce.
+    \item Pojmy: individuál (jedinec), chromozom, fitness, gen, genotyp, fenotyp.
+    \item Typy reprezentace: reálná čísla, stromy, bin. řetězec, obrázek etc.
+    \item Postup:
+        \begin{enumerate}
+            \item Inicializace populace - náhodná nebo informovaná (seeding).
+            \item Selekce: ruleta, turnaj, rank.
+            \item Křížení: 1-bodové, 2-bodové, cut\&splice, uniformní.
+            \item Mutace: nahrazení, prohození, inverze, smazání, etc.
+            \item Vyhodnocení fitness pomocí fitness funkce
+        \end{enumerate}
+    \item \textbf{Schémata} - templaty, skládající se z fixních symbolů (0,1) a hvězdiček, vlastnosti:
+        \begin{itemize}
+            \item délka d(S) - vzdálenost mezi prvním a posledním fixním symbolem (pro křížení)
+            \item řád o(S) - počet fixních symbolů (pro mutaci)
+            \item fitness f(S) - avg. fitness spočítané přes všechny řetězce schématu
+            \item m(S,t) - počet jedinců patřících schématu S v čase t
+            \item $f_s(t)$ - avg. fitness jedinců patřících do schématu v čase t
+            \item f(t) - avg. fitness přes celou pop. (i ty řetězce nepatřící do schématu)
+            \item pro selekci platí: $m(S,t+1)=m(S,t)*(f_s(t)/f(t))$
+            \item pro křízení platí: pravd. že schéma S (počet všech symbolů S je $l$) přežije křížení je $p_s(S)>=1-p_c*(d(S)/(l-1))$
+            \item Pravd. že přežije mutaci je $p_s(S)=(1-p_m)^{o(S)}$., při $p_m \ll 1$ platí $p_s(S)\approx1-p_mo(S)$
+            \item Celková pravděpodobnost přežití je $m(S,t+n)>=m(S,t)*(f_s(t)/f(t))^n*[1-p_c*(d(S)/(l-1))-p_m*o(S)]^n$
+        \end{itemize}
+    \item \textbf{Diverzifikace populace} - používají se niching methods, mimo uvedené metody lze například použít i ostrovy.
+        \begin{itemize}
+            \item deterministic crowding = žádná selekce, náhodní rodiče do dvojic, mají 2 děti a podobnější dvojice rodič-dítě si dají turnaj a vyhraje ten lepší
+            \item restricted competition = mezi všema dvojicema se při selekci zkusí kdo má větší fitness (když jsou dostatečně podobní) a tomu kdo prohrál se nastaví fitness na nulu
+            \item fitness sharing - sníží se fitness každému jedinci na základě počtu téměř stejných jedinců k němu v populaci, je zvolen nějaký threshold, dá se použít Hammingova vzd. či Eukleidova
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{Evoluce neuronových sítí a rozhodovacích stromů.}
+
+\begin{itemize}
+    \item \textbf{Evoluce neuronových sítí} - když nevíme jak by měla NN vypadat, je možné šlechtit strukturu i parametry
+    \item Šlechtění struktury - změny spojení mezi: neurony, neurony a inputy, neurony a outputy
+        \begin{itemize}
+            \item Spojení mohou být: odebrány, přídány, změněny.
+            \item Začíná se s malou náhodně spojenou sítí, postupně se přídávají neurony.
+            \item Zakódování: fixní nebo proměnná délka genomu, záleží na parametrech NN, např. const/var počet inputů neuronu
+                \begin{itemize}
+                    \item Binární kódování nevhodné, spíše objekt/struktura.
+                    \item U každého neuronu poznačeno: s kým má spojení, jestli má input, jestli má output a jaký, jeho id.
+                \end{itemize}
+            \item Operátory: selekce (klasické metody), křížení (musí produkovat validní potomky), mutace (např. přidej spojení, odstraň, změň, eventuelně přidej input/output)
+        \end{itemize}
+    \item Šlechtění parametrů neuronu - váhy inputů, aktivační funkce, threshold - běžně se šlechtí jejich konstanty 
+        \begin{itemize}
+            \item Zakódování - u každého neuronu je držen: vektor vah inputů, aktivační funkce (případně její parametry), threshold.
+            \item Operátory - selekce (ty samé metody), křížení (důležité aby se hodnoty nedostaly mimo nějaký rozsah třeba), mutace (např. změň input vektor, clear input vektor=nastav nuly, změň threshold, změň koef. aktivační funkce).
+        \end{itemize}
+    \item Šlechtění gramatiky, která popisuje kontrukci NN
+        \begin{itemize}
+            \item Nepracuje se stromy, ale s binárními/integerovými řetězci, ty jsou přeloženy do posloupností integerů (codons)
+            \item Genotyp-fenotyp mapování - každý codon specifikuje produkční pravidlo, které aplikuje pro daný neterminál: choice = codon MOD number\_of\_rules, mapování končí až jsou všechny neterminály rozexpandovány.
+            \item Díky gramatice mohou být vygenerovány pouze syntakticky korektní programy.
+        \end{itemize}
+    \item \textbf{Evoluce rozhodovacích stromů} - podobně evoluci NN, evoluce gramatiky je častěji používaná
+        \begin{itemize}
+            \item Každý strom je složen terminálů (real, integer, logické konstanty, akce) a neterminálů (aritmetické operátory, algebraické funkce, logické funkce, podmínky...).
+            \item Křížení: prohození podstromů jako v symb. reg.
+            \item Mutace: jako v symb. reg., např. nějaký podstrom je nahrazen novým random podstromem.
+            \item Mohou se použít i jiné operátory: permutation, editing, encapsulation, decimation.
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{HyperNEAT, Novelty Search.}
+
+\begin{itemize}
+    \item NEAT (NeuroEvolution of Augmenting Topologies) - šlechtí strukturu a váhy NN pomocí EA
+        \begin{itemize}
+            \item Začíná v minimální formě.
+            \item Zakódování: 1) tabulka nodů (u každého je poznačeno v které vrstvě leží) 2) tabulka spojení (z jakého nodu, do jakého nodu, váha, enabled/disabled, inovační číslo).
+            \item Značkování (=historical markings, =inovation numbers) - když se objeví nové spojení (pomocí mutace), glob. inov. číslo se inkrementuje a přiřadí se tomu spojení, je použito k identifikaci stejných struktur v jedincích během křižení.
+            \item Mutace - vah, přidání spojení, přidání nodu; hrany (spojení) se nemažou, kdyžtak se dají na disabled.
+            \item Křížení - díky značkování bez složité topologické analýzy.
+                \begin{itemize}
+                    \item Geny které nepasují jsou buď rozdělené (disjoint) nebo nadbytečné (excess), záleží na tom jestli jsou v nebo mimo rozmězí inovačních čísel druhého rodiče.
+                    \item Geny se stejnýma in. číslama jsou zarovnány a náhodně zvoleny do potomka, geny které nematchují jsou vzaté z více fit rodiče, disabled geny mají 25\% šanci na reenable během křížení.
+                \end{itemize}
+            \item Speciation - vytvoření druhů kde jedinci soutěží pouze s tím samým druhem, jsou tak chraněny topologické inovace a je zabráněno bloating of genomes.
+                \begin{itemize}
+                    \item Jsou rozděleny do druhu na základě topologické podobnosti kdy se vypočte threshold.
+                    \item Typy: pevný threshold, dynamic compatibility threshold (zvolen počet druhů), fitness sharing (každý druh bude mít jen omezeně jeidnců) 
+                \end{itemize}
+        \end{itemize}
+    \item \textbf{HyperNEAT} (Hypercube-based NEAT) - modifikace NEATu která reflektuje geometrii z input senzorů na neurony (symetrie, opakovaní, periodicita), těžko se to optimalizuje standardní cestou, kdy váhy nejsou závislé na pozici neuronu
+        \begin{itemize}
+            \item Také klasické metody učení pro NN (e.g. backpropragation) nerespektují geometrický řád inputů, centra v lidském mozku ano.
+            \item Základem je funkce, která popisuje váhy jednotlivých spojení neuronů: $f((x_i,y_i),(x_j,y_j))=w_{ij}$, tato funkce se šlechtí pomocí NEATu a struktura NN je šlechtěna separátním NEATem (který používá předchozí funkce k získání vah). Parametry funkce jsou 2D souřadnice neuronů.
+        \end{itemize}
+    \item CPPN (Compositional Pattern Producing Networks) - je to NN s různými aktivačními funkcemi a neomezenými spojeními
+        \begin{itemize}
+            \item Váhy sítě jsou vypočteny za pomocí souřadnic neuronu.
+            \item Substrate - seznam souřadnic neuronu společně s možnými spojeními mezi nimi (struktura sítě viz \ref{fig:mvi_3_struktura}).
+            \begin{figure}[h]\centering
+                \myimagebig{mvi_3_10}
+                \caption{Typy struktur.}\label{fig:mvi_3_struktura}
+            \end{figure}
+            \item HyperNEAT vs standard approach viz \ref{fig:mvi_3_hyper_vs_sd}
+            \begin{figure}[h]\centering
+                \myimagebig{mvi_3_11}
+                \caption{HyperNEAT vs standard approach.}\label{fig:mvi_3_hyper_vs_sd}
+            \end{figure}
+        \end{itemize}
+    \item \textbf{Novelty search} - bezcílné hledání, kde jsou odměňováni jedinci za nové objevy, i když třeba nesouvisí s cílem či mu odporují.
+        \begin{itemize}
+            \item Je moc lok. optim, těžko se zopakuje šlechtící proces stejně.
+            \item Hodně věci bylo objeveno když se hledalo něco jiného, jiné zase potřebovaly nějaké stepping stones to be invented first i když nebyly přímo souvislé, dá se navigovat maximálně pár stepping stones, ale těžko více.
+            \item Každá nová věc je potenciální stepping stone.
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{Optimalizace hejnem částic (PSO) a mravenčí kolonií (ACO).}
+
+\begin{itemize}
+    \item Metody Swarm Intelligence (SI), což je kolektivní chování decentralizaovaných, samoorganizujících systémů, které jsou postaveny na populaci jednoduchých agentů (mají omezené schopnosti), kteří lokálně interagují spolu a se svým prostředím
+    \item \textbf{PSO} - hejno částic, které se pochybují na zákl. jednoduchého pravidla v search space.
+        \begin{itemize}
+            \item Průběh (to v závorce je cyklus): inicializace pozic a rychlostí náhodně, ohodnoť hejno, (update rychlostí pomocí personal best a global best, aplikuj nové rychlosti na pozice, ohodnoť hejno)
+            \item Update rychlosti částice $i$: $v_{i+1}=a*v_i+b*\alpha*(p_i-x_i)+c*\beta*(g-x_i)$, kde $a,b,c$ jsou koeficienty voleny uživatelem, $p_i$ je nej. známá pozice částice $i$, $g$ je nej. pozice částice z celého hejna a $x_i$ je pozice částice $i$. $\alpha, \beta \in (0,1)$ -- random.
+            \item Update pozice se provede přičtením rychlosti k akt. pozici.
+        \end{itemize}
+    \item \textbf{ACO} - kolonie mravenců s limitovanými schopnostmi, založeno na jejich chování při hledání potravy
+        \begin{itemize}
+            \item Společná pamět realizována \textbf{feromony}.
+                \begin{itemize}
+                    \item Mravenci vytváří fer. stopu cestou zpět, pokud najdou potravu.
+                    \item Čím je silnejší stopa, tím spíš ji následují ostatní, a tím ji posilují.
+                    \item Tato fer. stopa časem vyprchává.
+                \end{itemize}
+            \item Pseudokód: cyklus(generateSolutions - napr. spoj 2 města v TSP, moveAnts - vytvoř nové part. řešení, pheromoneUpdate).
+            \item Pravd. pohybu mravence $k$ z $A$ do $B$: $p_{AB}^{k}=\dfrac{t_{AB}^\alpha * n_{AB}^\beta}{\sum\limits_{C} (t_{AC}^\alpha*n_{AC}^\beta)}$, kde $t$ je množství feromonů na dané cestě, $n$ je přitažlivost dané cesty (typicky 1/délkaCesty), $\alpha>=0$ kontroluje vypařování feromonů (vliv $t$) a $\beta<=1$ kontroluje vliv $n$.
+            \item Vylepšení: elitist, rank-based ant system, max-min ant system (limituje nejlepší řešení na max, aby se zkoušely i jiný, a nejhorší na min, aby se úplně nezahodilo).
+            \item ACO v TSP: rozmístí se mravenci do různých měst a pravděpodobnostně volí další města, navštívená si dají do tabu listu, až všichni najdou nějakou cestu tak se updatujou feromony podle toho jak krátkou cestu našli (čím kratší cesta, tím silnější feromony na ni umístí), takto se může opakovat kolikrát je libo.
+            \item Nevýhody: pomalejší konvergence než jiné heuristiky, pomalejší výkon pro TSP s více než 25 městy.
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{Ensemble metody (boosting, bagging, stacking). Využití evolučních algoritmů.}
+\begin{itemize}
+    \item \textbf{Ensemble metody} slouží k tomu abychom dostali lepší výsledky pomocí kombinace více modelů
+        \begin{itemize}
+            \item každý model děla jiné chyby, dáním dohromady dostaneme lepší obrázek o datech
+            \item \textbf{Bias-Variance error decomposition}: $E=var_y\{y\}+bias^2+var_{LS}\{y_{odhad}\}$
+                \begin{itemize}
+                    \item $var_y$ je šum, $bias$ je chyba prům. modelu proti optimálnímu, $var_{LS}$ je jak rozdílné modely dostaneme z rozdílných trénovacích dat.
+                    Rozepsaně: $E=E_y\{(E_y\{y\}-y)^2\}+(E_y\{y\}-E_{LS}\{y_{odhad}\})^2+E_{LS}\{(E_{LS}\{y_{odhad}\}-y_{odhad})^2\}$
+                \end{itemize}
+            \item Underfitting = modely mají nízký rozptyl a vysoký bias (velkou chybu oproti původním datům)
+            \item Overfitting = modely mají malý bias (fitujou přesně), ale vysoký rozptyl (jsou dost jiné pro jiná data)
+        \end{itemize}
+    \item Ensemblovací algoritmy - klíčem k úspěchu je diverzita modelu, toho lze dosáhnout buď používáním jiných modelů nebo používáním jiných trénovacích dat pro každý model.
+        \begin{itemize}
+            \item Jak fungují: 
+                \begin{enumerate}
+                    \item Zvolí učicí algoritmy a vytvoří datasety pro ně.
+                    \item Naučí zákl. modely - učení jednoho modelu nemusí být nezávislé a inputy modelů mohou být závislé na outputech ostatních modelů.
+                    \item Pro daný neznámý vektor dostane output jednotlivých modelů a spočítá output ensemblu.
+                \end{enumerate}
+            \item \textbf{Bagging}: data - náhodně vybraný subset s opakováním, učení - nezávislé, output - průměr.
+            \item \textbf{Boosting}: data - ty data co mají větší chybu na předch. modelech jsou spíš vybrány jako trén. data pro další model, učení - consecutive (po sobě jdoucí), output - vážený průměr založený na výkonu modelu.
+            \item \textbf{Stacking}: data - každý base model dostane stejná data a je udělán meta-dataset z jejich outputů, meta-dataset je input pro meta-model, učení - base model je nezávislý, meta-model je závislý na base modelech,  output - výstup meta-modelu.
+        \end{itemize}
+    \item Hierarchical ensemble - zobecnění ensemblovacího principu, jako base modely jsou použity jiné ensembly.
+    \item \textbf{Využití evol. algoritmů}
+        \begin{itemize}
+            \item NASA antena Yagi - šlechtily se umístění a délky jednotlivých komponent, které mohou významně ovlivnit výkonové charakterisitiky antény
+            \item NASA antena ST5 - genotyp je strom, který specifikuje konstrukci jednoho drátu v 3D, větvení ve stromu způsobuje větvení drátu, příkazy: forward(délka) - 0..3 potomci, rotate-x/y/z(úhel) - 1 potomek netemrinál, minmalizuje se nějaká fitness funkce (hraje tam roli zisk té antény)
+            \item Návrh obvodu - genetické programování použito pro zkombinování jak topologie tak sizingu (numerical component values) pro obvody, které duplikují patentované funkcionality
+            \item Geneticky vyšlechtěná řadící síť
+            \item Human competitive results: samořídící auta, intelligent assistants (Siri, Cortana), učení se hrát hru z obrazu hry (DeepMind, GoodAI)
+            \item Picbreeder - evolutionary art, generátor náhodných hezkých obrázků
+        \end{itemize}
+\end{itemize}
+
+
+\section{EDW}
+
+\subsection{Business data model, datová architektura a modelování, extrakce dat a datová integrace.}
+
+\begin{itemize}
+    \item BI = It's an umbrella term that defines a broad range of applications, technologies and methodologies that support a user's access to and analysis of information for making decisions and managing performance.
+    \item Model firmy se skládá z několika vrstev: Process \& Organization (BI Governance), Information, Functional, Data, SW \& Application, HW \& Infrastructure.
+    Každá vrstva vypadá jako na obr. \ref{fig:model_firmy}.
+    \begin{figure}[h]\centering
+        \myimage{model_firmy}
+        \caption{Jedna vrstva v modelu firmy.}\label{fig:model_firmy}
+    \end{figure}
+    \item BIAF (Business Intelligence Architecture Framework) -- obr. \ref{fig:biaf}.
+    \begin{figure}[h]\centering
+        \myimagebig{biaf}
+        \caption{BIAF.}\label{fig:biaf}
+    \end{figure}
+    \item Podmnožinou BIAF je BI architektura -- obr. \ref{fig:prakticke_schema}.
+    \begin{figure}[h]\centering
+        \myimagebig{prakticke_schema}
+        \caption{BI architektura.}\label{fig:prakticke_schema}
+    \end{figure}
+    \item Datová integrace
+    \begin{itemize}
+        \item Architektura -- architektonický framework = Landscape pro logické uspořádání komponent na základě bussiness potřeb a technologických možností. Agnostické prostředí -- nezávislé na konkrétních technologiích.
+        \item Design -- identifikace implementace (výběr komponent), identifikace rozhraní a typu integrace (ident. implementace komponent), definice aplikací, úložišť (nástrojů), datových vrstev, kategorií a data integračních vzorů (pravidel; datové toky, load, ETL/ELT, integrační kroky).
+        \item Řešení -- Vzory: source, landing, staging, integrated a access vrstev. Definice historizace dat (SCD).
+    \end{itemize}
+\end{itemize}
+
+\subsection{MPP databáze pro datové sklady, Hadoop a discovery platformy, nástroje pro datovou integraci a reporting.}
+
+\begin{itemize}
+    \item Teradata is the best: hybrid storage, multi-temperature data, složena z několika cliques (pronounced, "kleek") = několik nodů a AMP (= Access Module Processor - asi cca procesor s HDD) - každej node může ke každýmu AMP uvnitř jednoho clique. Data jsou pomocí hashovací funkce rozdělena mezi různé AMP
+    \item NoSQL: MongoDB - JSONy, BigTable - v jednom sloupečku několik dvojic proměnná:hodnota (Cassandra), Graph db - Neo4J
+    \item Hadoop: data lake files, schema-on-read, raw data, scans, search, Spark, HDFS, technologist focused, freeform exploratory analytics, vice manualni
+    \item Nástroje integrace: IBM InfoSphere DataStage
+    \item Nástroje reportingu: MicroStrategy, IBM Cognos Insight, SAP BI, Microsoft BI, Tableau
+\end{itemize}
+
+\subsection{Kontext a základní funkce Business Intelligence, analytické činnosti a rozhodovací procesy, uživatelské požadavky, roadmapa.}
+
+\begin{itemize}
+    \item BI = It's an umbrella term that defines a broad range of applications, technologies and methodologies that support a user's access to and analysis of information for making decisions and managing performance
+    \item K čemu to je:
+    \begin{itemize}
+        \item Automatizace poskytování dat pro podporu rozhodování
+        \item Zjednodušení tvorby informací ze získaných dat
+        \item Poskytnutí informací včas
+        \item Zajištění důvěryhodnosti poskytnutých informací  
+    \end{itemize}
+    \item Základní funkce:
+    \begin{itemize}
+        \item Zpracovat uživatelské požadavky
+        \item Přibývají rychleji, než je možné je zpracovávát
+        \item Mnoho z nich vede na rozšiřování struktur datového skladu, building bloků a martů $\to$ “generují velké projekty“
+        \item Existuje mnoho malých požadavků, které mají vzájemné souvislosti – hlavně datové
+        \item Jejich seskupením („bundling“) lze rovněž vytvořit definici „velkého projektu“
+        \item Jsou ale i malé změny, které takto zpracovat nejdou…
+    \end{itemize}
+    \item Připravovat krátkodobé plány - Roadmapa
+    \begin{itemize}
+        \item „Velké“ projekty (“Releases”)
+        \item Z „Velkých“ projektů často „něco odpadává“ do dalších Rel.
+        \item „Malé“ projekty, ale pořád projekty (“Mini Releases”)  
+    \end{itemize}
+    \item Připravovat vize/strategie - pro uživatele a pro BI
+    \item Analytics:
+    \begin{itemize}
+        \item Model driven: Theory $\to$ Hypothesis $\to$ Observation $\to$ Confirmation (Deductive reasoning (proof focused))
+        \item Discovery driven: Observation $\to$ Pattern $\to$ Hypothesis $\to$ Theory (Inductive reasoning (innovation focused))
+        \item Analytické činnnosti:
+        \begin{itemize}
+            \item outside interaction
+            \item corporate performance
+            \item production
+            \item finance
+            \item risks            
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\section*{Zdroje}
+
+Edux, fit-wiki, wikipedia, ty internety, a tak různě...
+
+\end{document}
